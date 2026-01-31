@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import HomeCard from "~/components/HomeCard";
+import type LoadingScreen from "~/components/AiLoad";
+import AiLoad from "~/components/AiLoad";
 
 export default function AiResults() {
     const { query } = useParams() as { query?: string };
@@ -35,6 +37,7 @@ export default function AiResults() {
             } catch (err: any) {
                 setError(err?.message || String(err));
             } finally {
+                await new Promise((resolve) => setTimeout(resolve, Math.random() * 1500 + 2000));
                 setLoading(false);
             }
         })();
@@ -46,7 +49,7 @@ export default function AiResults() {
 				<h1 className="text-2xl font-semibold mb-4">AI Results</h1>
 
 				{loading ? (
-					<div className="text-gray-600">Loading...</div>
+					<AiLoad />
 				) : error ? (
 					<div className="text-red-600">{error}</div>
 				) : (

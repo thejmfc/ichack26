@@ -12,6 +12,18 @@
     "description": "Lively student house near University of Sheffield with great social atmosphere. Perfect for outgoing students who love to entertain."
   },
   {
+    "price_per_person": 120,
+    "city": "Sheffield",
+    "address": "12 Baker Street, Sheffield, S1 2AB",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "distance": 10,
+    "vibe": "party",
+    "bills_included": true,
+    "amenities": ["wifi", "garden"],
+    "description": "Lively student house near University of Sheffield with great social atmosphere. Perfect for outgoing students who love to entertain."
+  },
+  {
     "price_per_person": 95,
     "city": "Sheffield",
     "address": "34 Highfield Road, Sheffield, S2 3CD",
@@ -21,7 +33,7 @@
     "vibe": "quiet",
     "bills_included": true,
     "amenities": ["wifi", "parking", "study_room"],
-    "description": "Peaceful house close to University of of Sheffield campus. Ideal for students who prioritize studying in a calm environment."
+    "description": "Peaceful house close to University of Sheffield. Ideal for students who prioritize studying in a calm environment."
   },
   {
     "price_per_person": 150,
@@ -33,7 +45,7 @@
     "vibe": "social",
     "bills_included": false,
     "amenities": ["wifi", "gym", "laundry"],
-    "description": "Modern apartment in Zone 2 with excellent transport links to Sheffield. Great for meeting new people."
+    "description": "Modern apartment with excellent transport links to the city centre. Great for meeting new people and joining campus activities at the University of Sheffield."
   },
   {
     "price_per_person": 85,
@@ -45,7 +57,7 @@
     "vibe": "party",
     "bills_included": true,
     "amenities": ["wifi", "garden", "parking"],
-    "description": "Spacious house near Sheffield University with large communal areas. Known for hosting the best student gatherings."
+    "description": "Spacious house in Sheffield with large communal areas. Known for hosting lively student gatherings and social events."
   },
   {
     "price_per_person": 110,
@@ -57,7 +69,7 @@
     "vibe": "quiet",
     "bills_included": false,
     "amenities": ["wifi", "heating", "storage"],
-    "description": "Charming flat in a quiet area with stunning views. Perfect for postgraduate students seeking tranquility."
+    "description": "Charming flat in a quiet area of Sheffield with stunning views. Perfect for postgraduate students seeking tranquility."
   },
   {
     "price_per_person": 140,
@@ -81,7 +93,7 @@
     "vibe": "party",
     "bills_included": false,
     "amenities": ["wifi", "garden", "parking"],
-    "description": "Large house in Sheffield, the ultimate student area. Weekly parties and great nightlife nearby."
+    "description": "Large house popular with students. Weekly parties and a lively nightlife nearby."
   },
   {
     "price_per_person": 130,
@@ -93,7 +105,7 @@
     "vibe": "quiet",
     "bills_included": true,
     "amenities": ["wifi", "ensuite", "study_room"],
-    "description": "Premium apartment in the city centre with ensuite rooms. Perfect for mature students who value privacy."
+    "description": "Premium apartment in the city centre with ensuite rooms. Perfect for mature students who value privacy and proximity to University of Sheffield."
   },
   {
     "price_per_person": 100,
@@ -105,7 +117,7 @@
     "vibe": "social",
     "bills_included": true,
     "amenities": ["wifi", "parking", "garden", "laundry"],
-    "description": "Friendly house near University of Sheffield. Current tenants love game nights and weekend brunches together."
+    "description": "Friendly house close to University of Sheffield. Current tenants love game nights and weekend brunches together."
   },
   {
     "price_per_person": 165,
@@ -117,7 +129,7 @@
     "vibe": "quiet",
     "bills_included": false,
     "amenities": ["wifi", "gym", "concierge", "study_room"],
-    "description": "Studio apartment in modern building near Sheffield. Perfect for focused PhD students."
+    "description": "Studio apartment in a modern building close to University of Sheffield. Perfect for focused PhD students."
   },
   {
     "price_per_person": 90,
@@ -129,7 +141,7 @@
     "vibe": "party",
     "bills_included": true,
     "amenities": ["wifi", "garden", "bbq", "parking"],
-    "description": "Popular party house near Sheffield University. Legendary summer BBQs in the massive garden."
+    "description": "Popular party house near University of Sheffield. Legendary summer BBQs in the massive garden."
   },
   {
     "price_per_person": 115,
@@ -153,7 +165,7 @@
     "vibe": "quiet",
     "bills_included": true,
     "amenities": ["wifi", "garden", "study_room", "parking"],
-    "description": "Peaceful house in a residential area near Sheffield University. Perfect for those who need a quiet study environment."
+    "description": "Peaceful house in a residential area near University of Sheffield. Perfect for those who need a quiet study environment."
   },
   {
     "price_per_person": 125,
@@ -165,7 +177,7 @@
     "vibe": "party",
     "bills_included": true,
     "amenities": ["wifi", "laundry", "garden"],
-    "description": "House right in the heart of Sheffield's student scene. Walking distance to all the best clubs and bars."
+    "description": "House in the city with easy access to nightlife. Walking distance to all the best clubs and bars near University of Sheffield."
   },
   {
     "price_per_person": 135,
@@ -177,7 +189,7 @@
     "vibe": "quiet",
     "bills_included": false,
     "amenities": ["wifi", "parking", "bike_storage", "study_room"],
-    "description": "Quiet cottage-style house perfect for Sheffield students. Dedicated study spaces in every room."
+    "description": "Quiet cottage-style house perfect for students. Dedicated study spaces in every room and easy transit to University of Sheffield."
   },
   {
     "price_per_person": 95,
@@ -189,7 +201,7 @@
     "vibe": "social",
     "bills_included": true,
     "amenities": ["wifi", "garden", "parking", "bbq"],
-    "description": "Student house near Sheffield University with a great mix of social and study time. Regular movie nights."
+    "description": "Student house close to University of Sheffield with a great mix of social and study time. Regular movie nights."
   },
   {
     "price_per_person": 155,
@@ -201,7 +213,7 @@
     "vibe": "quiet",
     "bills_included": false,
     "amenities": ["wifi", "study_room", "bike_storage", "parking"],
-    "description": "Premium accommodation for Sheffield students. Quiet neighborhood with excellent study facilities."
+    "description": "Premium accommodation close to University of Sheffield. Quiet neighborhood with excellent study facilities."
   },
   {
     "price_per_person": 80,
@@ -213,7 +225,7 @@
     "vibe": "party",
     "bills_included": true,
     "amenities": ["wifi", "garden", "laundry", "parking"],
-    "description": "Massive student house perfect for a large group of friends. Known for epic pre-drinks before nights out."
+    "description": "Massive student house perfect for a large group of friends. Known for epic pre-drinks before nights out and short rides to campus."
   },
   {
     "price_per_person": 110,
@@ -225,7 +237,7 @@
     "vibe": "quiet",
     "bills_included": true,
     "amenities": ["wifi", "parking", "heating", "study_room"],
-    "description": "Traditional house in historic Sheffield. Quiet atmosphere ideal for students at Sheffield University's colleges."
+    "description": "Traditional house in a quiet Sheffield neighbourhood. Ideal for students at the University of Sheffield."
   },
   {
     "price_per_person": 145,
@@ -237,7 +249,7 @@
     "vibe": "social",
     "bills_included": false,
     "amenities": ["wifi", "gym", "laundry", "roof_terrace"],
-    "description": "Modern flat in Sheffield with rooftop terrace. Great for socializing and close to multiple universities."
+    "description": "Modern flat with rooftop terrace. Great for socialising and close to University of Sheffield."
   },
   {
     "price_per_person": 70,
@@ -249,7 +261,7 @@
     "vibe": "party",
     "bills_included": true,
     "amenities": ["wifi", "garden", "parking"],
-    "description": "Budget-friendly party house near Sheffield University. Big garden perfect for summer parties."
+    "description": "Budget-friendly party house near popular student areas. Big garden perfect for summer parties."
   },
   {
     "price_per_person": 120,
@@ -261,7 +273,7 @@
     "vibe": "social",
     "bills_included": true,
     "amenities": ["wifi", "garden", "parking", "dishwasher"],
-    "description": "Well-maintained house near Sheffield University. Great housemate dynamic with regular social gatherings."
+    "description": "Well-maintained house with a great housemate dynamic and regular social gatherings close to University of Sheffield."
   },
   {
     "price_per_person": 100,
@@ -285,7 +297,7 @@
     "vibe": "social",
     "bills_included": true,
     "amenities": ["wifi", "gym", "laundry", "ensuite"],
-    "description": "Luxury apartment in Sheffield. Great for social students who also appreciate quality living."
+    "description": "Luxury apartment in a desirable Sheffield neighbourhood. Great for social students who appreciate quality living near campus."
   },
   {
     "price_per_person": 85,
@@ -297,7 +309,7 @@
     "vibe": "party",
     "bills_included": false,
     "amenities": ["wifi", "garden", "parking", "laundry"],
-    "description": "Popular student house in Sheffield. Close to curry mile and all the best student bars."
+    "description": "Popular student house in a lively Sheffield area. Close to local bars and restaurants."
   },
   {
     "price_per_person": 125,
@@ -309,7 +321,7 @@
     "vibe": "quiet",
     "bills_included": true,
     "amenities": ["wifi", "parking", "garden", "study_room"],
-    "description": "Beautiful Georgian house in quiet neighborhood. Perfect for University of Sheffield students."
+    "description": "Beautiful Georgian house in a quiet Sheffield neighbourhood. Perfect for students who want style and calm."
   },
   {
     "price_per_person": 105,
@@ -321,7 +333,7 @@
     "vibe": "social",
     "bills_included": true,
     "amenities": ["wifi", "parking", "garden", "dishwasher"],
-    "description": "Student house near Sheffield University campus. Friendly atmosphere with regular house dinners and activities."
+    "description": "Student house with friendly atmosphere and regular house dinners. Close to University of Sheffield."
   },
   {
     "price_per_person": 175,
@@ -333,7 +345,7 @@
     "vibe": "quiet",
     "bills_included": false,
     "amenities": ["wifi", "gym", "concierge", "study_room", "ensuite"],
-    "description": "Premium studio in Central Sheffield. Perfect for postgraduate students at LSE or Sheffield who value peace and luxury."
+    "description": "Premium studio in central Sheffield, ideal for postgraduate students who value peace and luxury close to University of Sheffield."
   },
   {
     "price_per_person": 90,
@@ -345,7 +357,7 @@
     "vibe": "party",
     "bills_included": true,
     "amenities": ["wifi", "garden", "bbq", "bike_storage"],
-    "description": "Bohemian student house near Sheffield University. Artistic crowd with regular beach parties and BBQs."
+    "description": "Bohemian student house with creative tenants and regular social events. Short commute to University of Sheffield."
   },
   {
     "price_per_person": 115,
@@ -357,6 +369,222 @@
     "vibe": "social",
     "bills_included": true,
     "amenities": ["wifi", "parking", "laundry", "garden"],
-    "description": "Welcoming house near Sheffield University. Perfect balance of socializing and studying with supportive housemates."
+    "description": "Welcoming house perfect for students wanting a balance of socialising and studying near University of Sheffield."
+  },
+  {
+    "price_per_person": 130,
+    "city": "Sheffield",
+    "address": "201 New Road, Sheffield, S31 5AA",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "distance": 6,
+    "vibe": "social",
+    "bills_included": true,
+    "amenities": ["wifi", "garden", "parking"],
+    "description": "Freshly renovated townhouse popular with students; close to University of Sheffield and public transport."
+  },
+  {
+    "price_per_person": 85,
+    "city": "Sheffield",
+    "address": "202 New Road, Sheffield, S31 5AB",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "distance": 9,
+    "vibe": "quiet",
+    "bills_included": false,
+    "amenities": ["wifi", "heating", "storage"],
+    "description": "Quiet family-style house converted for students; study rooms and a private garden."
+  },
+  {
+    "price_per_person": 95,
+    "city": "Sheffield",
+    "address": "203 New Road, Sheffield, S31 5AC",
+    "bedrooms": 5,
+    "bathrooms": 3,
+    "distance": 7,
+    "vibe": "party",
+    "bills_included": true,
+    "amenities": ["wifi", "garden", "bbq"],
+    "description": "Large student property with big communal kitchen and garden; popular for social events."
+  },
+  {
+    "price_per_person": 115,
+    "city": "Sheffield",
+    "address": "204 New Road, Sheffield, S31 5AD",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "distance": 4,
+    "vibe": "social",
+    "bills_included": true,
+    "amenities": ["wifi", "parking", "dishwasher"],
+    "description": "Modern shared house a short walk from University of Sheffield with regular house dinners."
+  },
+  {
+    "price_per_person": 100,
+    "city": "Sheffield",
+    "address": "205 New Road, Sheffield, S31 5AE",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "distance": 11,
+    "vibe": "quiet",
+    "bills_included": false,
+    "amenities": ["wifi", "parking", "study_room"],
+    "description": "Comfortable semi-detached house in a residential street; great for quiet study periods."
+  },
+  {
+    "price_per_person": 140,
+    "city": "Sheffield",
+    "address": "206 Oak Lane, Sheffield, S32 2BB",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "distance": 5,
+    "vibe": "social",
+    "bills_included": true,
+    "amenities": ["wifi", "gym", "laundry"],
+    "description": "Stylish apartment with gym access and modern furnishings; popular for social students."
+  },
+  {
+    "price_per_person": 75,
+    "city": "Sheffield",
+    "address": "207 Oak Lane, Sheffield, S32 2BC",
+    "bedrooms": 6,
+    "bathrooms": 3,
+    "distance": 14,
+    "vibe": "party",
+    "bills_included": false,
+    "amenities": ["wifi", "garden", "parking"],
+    "description": "Budget-friendly big house well-suited to large groups; lively neighborhood."
+  },
+  {
+    "price_per_person": 125,
+    "city": "Sheffield",
+    "address": "208 Oak Lane, Sheffield, S32 2BD",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "distance": 6,
+    "vibe": "quiet",
+    "bills_included": true,
+    "amenities": ["wifi", "garden", "study_room"],
+    "description": "Well-kept house with garden and private study area; ideal for postgraduate students."
+  },
+  {
+    "price_per_person": 90,
+    "city": "Sheffield",
+    "address": "209 Oak Lane, Sheffield, S32 2BE",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "distance": 10,
+    "vibe": "social",
+    "bills_included": true,
+    "amenities": ["wifi", "parking", "laundry"],
+    "description": "Friendly student home close to local amenities and public transport to campus."
+  },
+  {
+    "price_per_person": 110,
+    "city": "Sheffield",
+    "address": "210 Oak Lane, Sheffield, S32 2BF",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "distance": 8,
+    "vibe": "quiet",
+    "bills_included": true,
+    "amenities": ["wifi", "parking", "heating"],
+    "description": "Modern three-bedroom house with comfortable study spaces and parking."
+  },
+  {
+    "price_per_person": 135,
+    "city": "Sheffield",
+    "address": "11 Garden Court, Sheffield, S33 3CC",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "distance": 3,
+    "vibe": "quiet",
+    "bills_included": false,
+    "amenities": ["wifi", "bike_storage", "study_room"],
+    "description": "Cosy two-bedroom apartment ideal for students seeking a calm home close to University of Sheffield."
+  },
+  {
+    "price_per_person": 95,
+    "city": "Sheffield",
+    "address": "12 Garden Court, Sheffield, S33 3CD",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "distance": 7,
+    "vibe": "social",
+    "bills_included": true,
+    "amenities": ["wifi", "garden", "bbq"],
+    "description": "Spacious home with garden and communal areas; great for those who enjoy hosting."
+  },
+  {
+    "price_per_person": 100,
+    "city": "Sheffield",
+    "address": "13 Garden Court, Sheffield, S33 3DE",
+    "bedrooms": 3,
+    "bathrooms": 1,
+    "distance": 9,
+    "vibe": "social",
+    "bills_included": true,
+    "amenities": ["wifi", "parking", "laundry"],
+    "description": "Friendly share house with easy access to campus and local cafes."
+  },
+  {
+    "price_per_person": 120,
+    "city": "Sheffield",
+    "address": "14 Garden Court, Sheffield, S33 3DF",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "distance": 6,
+    "vibe": "social",
+    "bills_included": true,
+    "amenities": ["wifi", "dishwasher", "garden"],
+    "description": "Large house with modern kitchen and dining area perfect for social students."
+  },
+  {
+    "price_per_person": 105,
+    "city": "Sheffield",
+    "address": "15 Garden Court, Sheffield, S33 3DG",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "distance": 5,
+    "vibe": "quiet",
+    "bills_included": true,
+    "amenities": ["wifi", "study_room", "parking"],
+    "description": "Comfortable shared accommodation with dedicated study area and quiet neighbours."
+  },
+  {
+    "price_per_person": 85,
+    "city": "Sheffield",
+    "address": "16 Garden Court, Sheffield, S33 3DH",
+    "bedrooms": 5,
+    "bathrooms": 2,
+    "distance": 12,
+    "vibe": "party",
+    "bills_included": true,
+    "amenities": ["wifi", "garden", "parking"],
+    "description": "Energetic house in a popular student area; short ride into the city centre."
+  },
+  {
+    "price_per_person": 130,
+    "city": "Sheffield",
+    "address": "17 Garden Court, Sheffield, S33 3DJ",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "distance": 4,
+    "vibe": "quiet",
+    "bills_included": true,
+    "amenities": ["wifi", "ensuite", "bike_storage"],
+    "description": "Smart apartment with ensuite room and secure bike storage; ideal for commuters."
+  },
+  {
+    "price_per_person": 145,
+    "city": "Sheffield",
+    "address": "18 Garden Court, Sheffield, S33 3DK",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "distance": 3,
+    "vibe": "social",
+    "bills_included": false,
+    "amenities": ["wifi", "gym", "laundry"],
+    "description": "Central apartment with communal rooftop and fantastic city views; great social hub."
   }
 ]

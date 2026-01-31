@@ -27,6 +27,7 @@ import json
 from semantic_search.collection import Collection
 from semantic_search.generate_embeds import generate_embeddings
 import threading
+import time
 def run_generate_embeddings():
     try:
         generate_embeddings()
@@ -93,7 +94,10 @@ def embed_prompt(request: PromptRequest):
         results = collection_instance.search(request.prompt)
 
         print(results)
-        
+
+        time.sleep(5)
+
+        # Return the search results
         return {
             "message": "Search completed successfully", 
             "prompt": request.prompt,
