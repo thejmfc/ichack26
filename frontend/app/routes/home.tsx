@@ -13,7 +13,7 @@ export function meta({}: Route.MetaArgs) {
 const AMENITIES = ["Dishwasher", "Dryer", "Washer", "Parking", "Garden"];
 
 export default function Home() {
-  const { homes, loading, error, search, query, count } = useHomes();
+  const { homes, similarHomes, loading, error, search, query, count } = useHomes();
   const [showExtras, setShowExtras] = useState(false);
 
   const [location, setLocation] = useState(query.location ?? "");
@@ -75,7 +75,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowExtras((s) => !s)}
-                className="rounded-md px-4 py-2 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm"
+                className="rounded-md px-4 py-2 border min-w-32 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm"
               >
                 {showExtras ? "Hide extras" : "Show extras"}
               </button>
@@ -108,11 +108,25 @@ export default function Home() {
             {error && <div className="text-sm text-red-600">{error}</div>}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {homes.map((h) => (
-              <HomeCard key={h.id} home={h} />
-            ))}
-          </div>
+          {homes.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {homes.map((h) => (
+                <HomeCard key={h.id} home={h} />
+              ))}
+            </div>
+          ) : !loading && similarHomes && similarHomes.length > 0 ? (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold mb-3">Similar areas</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">No direct matches for "{location}" — you might like these nearby areas:</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {similarHomes.map((h) => (
+                  <HomeCard key={h.id} home={h} />
+                ))}
+              </div>
+            </section>
+          ) : (
+            <div className="text-sm text-gray-600 dark:text-gray-300">{loading ? "Searching..." : "No properties found."}</div>
+          )}
         </section>
       </div>
     </main>

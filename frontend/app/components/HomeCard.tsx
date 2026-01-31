@@ -31,7 +31,7 @@ export function HomeCard({ home }: { home: Home }) {
         <div className="mt-2 flex items-center justify-between">
           <div className="text-sm text-gray-700 dark:text-gray-200">{home.price}</div>
           <div className="text-xs text-gray-500 dark:text-gray-400">
-            {home.beds} bd • {home.baths} ba
+            {home.beds} bedrooms • {home.baths} bathroom{home.baths > 1 ? 's' : ''}
           </div>
         </div>
 
