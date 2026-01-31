@@ -1,5 +1,4 @@
-import logging
-from . import database
+import logging, database
 
 from dotenv import load_dotenv
 load_dotenv()
