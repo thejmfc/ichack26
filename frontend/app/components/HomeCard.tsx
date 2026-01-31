@@ -1,16 +1,5 @@
 import React from "react";
-
-export type Home = {
-  id: string | number;
-  title: string;
-  location: string;
-  price: string;
-  beds: number;
-  baths: number;
-  image?: string | null;
-  amenities?: string[];
-  description?: string;
-};
+import type { Home } from "~/types/home";
 
 export function HomeCard({ home }: { home: Home }) {
   return (
@@ -18,20 +7,20 @@ export function HomeCard({ home }: { home: Home }) {
         <div className="h-44 bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
           {home.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={home.image} alt={home.title} className="w-full h-full object-cover" />
+            <img src={home.image} alt={home.address} className="w-full h-full object-cover" />
           ) : (
             <div className="text-sm text-gray-500 dark:text-gray-400">No image</div>
           )}
         </div>
         <div className="p-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
-            {home.title}
+            {home.address}
           </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">{home.location}</p>
           <div className="mt-2 flex items-center justify-between">
-            <div className="text-sm text-gray-700 dark:text-gray-200">{home.price}</div>
+            <div className="text-sm text-gray-700 dark:text-gray-200">{home.price_per_person} per person</div>
             <div className="text-xs text-gray-500 dark:text-gray-400">
-              {home.beds} bedrooms • {home.baths} bathroom{home.baths > 1 ? 's' : ''}
+              {home.bedrooms} bedrooms • {home.bathrooms} bathroom{home.bathrooms > 1 ? 's' : ''}
             </div>
           </div>
 
