@@ -16,7 +16,7 @@ export function useHomes(initialQuery?: Query) {
     const [error, setError] = useState<string | null>(null);
     const [query, setQuery] = useState<Query>(initialQuery || {});
 
-    const apiBaseUrl = import.meta.env.VITE_HOMES_API_URL as string | undefined;
+    const apiBaseUrl = import.meta.env.HOMES_API_URL as string | undefined;
 
     // similarity logic moved to ../scripts/similarity.ts (computeSimilarity)
 
