@@ -10,26 +10,28 @@ POSTCODES_IO_API_BASE_URL = "https://api.postcodes.io/postcodes"
 class Address(SQLModel):
     address_line_1: str
     address_line_2: str
+    city: str
     postcode: str
+    latitude: float
+    longitude: float
 
-    def get_postcode_data(self) -> dict:
-        url = f"{POSTCODES_IO_API_BASE_URL}/{urllib.parse.quote(self.postcode)}"
-        return requests.get(url).json()
+    @staticmethod
+    def get_coordinates(postcode: str) -> tuple:
+        url = f"{POSTCODES_IO_API_BASE_URL}/{urllib.parse.quote(postcode)}"
+        res = requests.get(url).json()
+        return res["result"]["latitude"], res["result"]["longitude"]
 
-    def distance_from(self, other: "Address") -> int:
-        """Calculates the geodesic distance between two locations in kilometers.
+    @staticmethod
+    def distance(a: "Address", b: "Address") -> int:
+        """Calculates the geodesic distance between two locations in kilometers."""
 
-        Under the hood, this uses the latitude and longitude of each location's postcode.
-        """
+        return geodesic((a.latitude, a.longitude), (b.latitude, b.longitude)).km
 
-        return geodesic((self.latitude, self.longitude), (other.latitude, other.longitude)).km
-
-    @property
-    def latitude(self) -> float:
-        data = self.get_postcode_data()
-        return data["result"]["latitude"]
-
-    @property
-    def longitude(self) -> float:
-        data = self.get_postcode_data()
-        return data["result"]["longitude"]
+    @classmethod
+    def new(cls, postcode: str, **kwargs) -> "Address":
+        latitude, longitude = cls.get_coordinates(postcode)
+        return cls(
+            **kwargs,
+            postcode=postcode,
+            latitude=latitude,
+            longitude=longitude)
