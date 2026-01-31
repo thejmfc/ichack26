@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router";
 
 export type Home = {
   id: string | number;
@@ -15,7 +14,6 @@ export type Home = {
 
 export function HomeCard({ home }: { home: Home }) {
   return (
-    <Link to={`/${home.id}`} aria-label={home.title} className="block">
       <article className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-900">
         <div className="h-44 bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
           {home.image ? (
@@ -57,7 +55,6 @@ export function HomeCard({ home }: { home: Home }) {
           )}
         </div>
       </article>
-    </Link>
   );
 }
 

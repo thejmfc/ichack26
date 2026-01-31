@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 import React, { useMemo, useState } from "react";
 import HomeCard from "../components/HomeCard";
 import useHomes from "../hooks/useHomes";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -111,7 +112,9 @@ export default function Home() {
           {homes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {homes.map((h) => (
-                <HomeCard key={h.id} home={h} />
+                <Link to={`/${h.id}`}>
+                  <HomeCard key={h.id} home={h} />
+                </Link>
               ))}
             </div>
           ) : !loading && similarHomes && similarHomes.length > 0 ? (
