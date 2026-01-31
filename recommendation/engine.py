@@ -167,7 +167,6 @@ def search_properties(
     min_bedrooms: Optional[int] = Query(None, description="Minimum number of bedrooms"),
     min_bathrooms: Optional[int] = Query(None, description="Minimum number of bathrooms"),
     max_distance: Optional[float] = Query(None, description="Maximum distance from city center"),
-    vibe: Optional[str] = Query(None, description="Property vibe/type"),
     bills_included: Optional[bool] = Query(None, description="Whether bills are included"),
 ):
     properties = get_all_properties()
@@ -189,9 +188,6 @@ def search_properties(
     
     if max_distance is not None:
         filtered_properties = [p for p in filtered_properties if p.distance and p.distance <= max_distance]
-    
-    if vibe:
-        filtered_properties = [p for p in filtered_properties if p.vibe and vibe.lower() in p.vibe.lower()]
     
     if bills_included is not None:
         filtered_properties = [p for p in filtered_properties if p.bills_included == bills_included]
