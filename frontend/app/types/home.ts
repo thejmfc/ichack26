@@ -1,4 +1,7 @@
-export type Home = {
+/**
+ * Represents a home/property listing
+ */
+export interface Home {
     price_per_person: number;
     city: string;
     address: string;
@@ -11,7 +14,14 @@ export type Home = {
     description?: string;
     image?: string;
     location?: string;
-    price?: string | number;
-    beds?: number;
-    baths?: number;
-};
+}
+
+/**
+ * Query parameters for searching homes
+ */
+export interface HomeQuery {
+    location?: string;
+    bedrooms?: number;
+    bathrooms?: number;
+    amenities?: string[];
+}

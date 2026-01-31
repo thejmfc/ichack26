@@ -1,5 +1,6 @@
 import logging
 import importlib, sys, os
+import semantic_search
 
 
 try:
@@ -56,3 +57,7 @@ def get_property(id: int):
     if id < 1 or id >= len(data):
         raise HTTPException(status_code=404, detail="Property not found")
     return data[id - 1]
+
+@app.post("/prompt")
+def embed_prompt(prompt: str):
+    semantic_search.generate_embeddings(prompt)

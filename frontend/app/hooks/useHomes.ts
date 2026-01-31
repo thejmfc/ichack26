@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Home } from "~/types/home";
+import similarity from "~/scripts/similarity";
 
 
 export function useHomes(initialQuery?: Query) {
@@ -10,16 +11,30 @@ export function useHomes(initialQuery?: Query) {
 
     const apiBaseUrl = "http://127.0.0.1:8000";
 
-    const fetchHomes = useCallback(async (queryParams: any) => {
+    const fetchHomes = useCallback(async (queryParams: Home) => {
         setLoading(true);
         setError(null);
-        try {;
-                const response = await fetch(`${apiBaseUrl}/properties`);
+        try {
+            const response = await fetch(`${apiBaseUrl}/properties`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const homesData: Home[] = await response.json();
 
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const homesData: Home[] = await response.json();
-                setHomes(homesData || []);
+            // Filter homes client-side based on queryParams
+            const filteredHomes = homesData.filter((home) => {
+                if (queryParams.bathrooms && home.bathrooms < queryParams.bathrooms) return false;
+                if (queryParams.bedrooms && home.bedrooms < queryParams.bedrooms) return false;
+                if (queryParams.amenities && Array.isArray(queryParams.amenities)) {
+                    if (!queryParams.amenities.every((a: string) =>
+                        home.amenities?.some((ha: string) => ha.toLowerCase() === a.toLowerCase())
+                    )) return false;
+                }
+                if (queryParams.address) {
+                    if (!similarity.computeSimilarity(home.address, queryParams.address)) return false;
+                }
+                return true;
+            });
 
+            setHomes(filteredHomes);
         } catch (caughtError: any) {
             setError(caughtError?.message || String(caughtError));
         } finally {
@@ -30,7 +45,6 @@ export function useHomes(initialQuery?: Query) {
     useEffect(() => {
         fetchHomes(query);
     }, [fetchHomes, query]);
-
 
     const count = useMemo(() => homes.length, [homes]);
 

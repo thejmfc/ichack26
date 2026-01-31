@@ -8,11 +8,11 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link to={"/"} className="text-xl font-bold text-gray-900 dark:text-gray-100">studentHomes</Link>
-          <a className="text-sm text-gray-700 dark:text-gray-300 hover:underline" href="/ai-matcher">AI Matcher</a>
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="text-sm px-3 py-1 rounded-md border border-gray-200 dark:border-gray-700">Sign up</button>
+          <Link to={"/signin"} className="text-sm px-3 py-1 rounded-md">Sign in</Link>
+          <Link to={"/signup"} className="text-sm px-3 py-1 rounded-md border border-gray-200 dark:border-gray-700">Sign up</Link>
           <a href="#" aria-label="Instagram" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">
             <FaInstagram size={18} />
           </a>
