@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
+import HomeCard from "~/components/HomeCard";
 
 export default function AiResults() {
     const { query } = useParams() as { query?: string };
@@ -24,7 +25,6 @@ export default function AiResults() {
                 });
                 const data = await res.json();
 
-                // Normalize data into an array of results we can display.
                 if (Array.isArray(data)) {
                     setResults(data);
                 } else if (data && typeof data === "object" && Array.isArray((data as any).results)) {
@@ -54,10 +54,39 @@ export default function AiResults() {
 						{results.length === 0 ? (
 							<div className="text-gray-600">No results.</div>
 						) : (
-							results.map((r, i) => (
-								<pre key={i} className="p-3 bg-white dark:bg-gray-900 border rounded text-sm overflow-auto">
-									{JSON.stringify(r, null, 2)}
-								</pre>
+							results.map((r) => (
+                                    results.slice(1).map((r, idx) => {
+                                        const lines = r.document.split("\n");
+                                        const keyValuePairs = lines
+                                            .map((line: string) => {
+                                                const [key, ...rest] = line.split(":");
+                                                if (!key || rest.length === 0) return null;
+                                                return { key: key.trim(), value: rest.join(":").trim() };
+                                            })
+                                            .filter(Boolean) as { key: string; value: string }[];
+
+                                        // Define Home type
+                                        type Home = {
+                                            [key: string]: string;
+                                        };
+
+                                        // Coerce keyValuePairs into Home
+                                        const home: Home = keyValuePairs.reduce((acc: Home, pair) => {
+                                            acc[pair.key.toLowerCase().replaceAll(' ', '_')] = pair.value;
+                                            return acc;
+                                        }, {});
+
+                                        // Convert amenities to array if it exists and is a string
+                                        if (typeof home.amenities === "string") {
+                                            home.amenities = home.amenities.split(",").map((a: string) => a.trim());
+                                        }
+
+                                        console.log(home)
+
+                                        return (
+                                            <HomeCard home={home} />
+                                        );
+                                    })
 							))
 						)}
 					</div>
