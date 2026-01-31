@@ -31,7 +31,7 @@ export function HomeCard({ home }: { home: Home }) {
                   key={a}
                   className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"
                 >
-                  {a}
+                  {a.replaceAll('_', ' ')}
                 </span>
               ))}
             </div>
