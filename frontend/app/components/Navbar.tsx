@@ -7,7 +7,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <div className="text-xl font-bold text-gray-900 dark:text-gray-100">studentHomes</div>
-          <a className="text-sm text-gray-700 dark:text-gray-300 hover:underline" href="#">AI Matcher</a>
+          <a className="text-sm text-gray-700 dark:text-gray-300 hover:underline" href="/ai-matcher">AI Matcher</a>
         </div>
 
         <div className="flex items-center gap-4">
