@@ -1,18 +1,8 @@
 import json
 import os
-from sentence_transformers import SentenceTransformer
+from . import collection as col
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
-from semantic_search import collection as Collection
-
-collection = Collection()
-
-
-def embed_text(text: str):
-    """Generate embeddings using SentenceTransformer"""
-    cleaned_text = " ".join(text.split())
-    embedding = model.encode(cleaned_text, convert_to_tensor=False)
-    return embedding.tolist()
+collection = col.Collection()
 
 def generate_embeddings():
     """Generate embeddings locally (original functionality)"""

@@ -3,8 +3,17 @@ import uuid
 import os
 
 from chromadb import Settings
-from sympy import true
-import generate_embeds
+
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+
+def embed_text(text: str):
+    """Generate embeddings using SentenceTransformer"""
+    cleaned_text = " ".join(text.split())
+    embedding = model.encode(cleaned_text, convert_to_tensor=False)
+    return embedding.tolist()
 
 class Collection:
     chroma_client = chromadb.Client(settings=Settings(allow_reset=True))
@@ -20,7 +29,7 @@ class Collection:
         try:
             self.collection.upsert(
                 ids=[uuid.uuid4().hex],
-                embeddings=[generate_embeds.embed_text(content)],
+                embeddings=[embed_text(content)],
                 documents=[content]
             )
             return True
@@ -40,8 +49,8 @@ class Collection:
         
     def search(self, query, results_count=5):
         try:
-            return self.collection.query(
-                query_embeddings=[generate_embeds.embed_text(query)],
+                return self.collection.query(
+                query_embeddings=[embed_text(query)],
                 n_results=results_count
             )
         except Exception as e:

@@ -23,16 +23,11 @@ from pathlib import Path
 import json
 
 # Import semantic search modules
-try:
-    from semantic_search.collection import Collection
-    from semantic_search.generate_embeds import generate_embeddings
-    generate_embeddings()
-except ImportError as e:
-    print(f"Warning: Could not import semantic search modules: {e}")
-    # Create dummy functions to prevent crashes
-    class Collection:
-        def search(self, query): return []
-    def embed_text(text): return []
+
+from semantic_search.collection import Collection
+from semantic_search.generate_embeds import generate_embeddings
+generate_embeddings()
+
 
 
 log = logging.getLogger(__name__)
