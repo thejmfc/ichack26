@@ -30,4 +30,4 @@ def generate_embeddings():
         """
         
         # Generate embedding
-        collection.insert(text)
+        collection.insert(i, text)

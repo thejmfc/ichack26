@@ -25,10 +25,10 @@ class Collection:
         except Exception as e:
             self.collection = self.chroma_client.create_collection(name="docs")
 
-    def insert(self, content):
+    def insert(self, id, content):
         try:
             self.collection.upsert(
-                ids=[uuid.uuid4().hex],
+                ids=[str(id)],
                 embeddings=[embed_text(content)],
                 documents=[content]
             )
@@ -49,10 +49,22 @@ class Collection:
         
     def search(self, query, results_count=5):
         try:
-                return self.collection.query(
-                query_embeddings=[embed_text(query)],
-                n_results=results_count
+            results =  self.collection.query(
+            query_embeddings=[embed_text(query)],
+            n_results=results_count
             )
+
+            items = [
+                {
+                    "id": results["ids"][0][i],
+                    "document": results["documents"][0][i],
+                    "metadata": results["metadatas"][0][i],
+                    "distance": results["distances"][0][i],
+                }
+                for i in range(len(results["ids"][0]))
+            ]
+
+            return items
         except Exception as e:
             print(e)
             return []
