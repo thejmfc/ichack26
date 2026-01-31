@@ -2,6 +2,15 @@ import json
 import os
 from sentence_transformers import SentenceTransformer
 
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+def embed_text(text: str):
+    """Generate embeddings using SentenceTransformer"""
+    cleaned_text = " ".join(text.split())
+    embedding = model.encode(cleaned_text, convert_to_tensor=False)
+    return embedding.tolist()
+
 def generate_embeddings(text: str):
     """Generate embeddings locally (original functionality)"""
     print("🔄 Generating embeddings...")
@@ -11,14 +20,6 @@ def generate_embeddings(text: str):
     with open(properties_path) as f:
         data = json.load(f)
 
-    # Initialize model
-    model = SentenceTransformer('all-MiniLM-L6-v2')
-
-    def embed_text(text: str):
-        """Generate embeddings using SentenceTransformer"""
-        cleaned_text = " ".join(text.split())
-        embedding = model.encode(cleaned_text, convert_to_tensor=False)
-        return embedding.tolist()
 
     embeddings = {}
 

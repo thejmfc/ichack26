@@ -70,3 +70,6 @@ uvloop==0.22.1
 watchfiles==1.1.1
 wcwidth==0.5.3
 websockets==16.0
+
+sentence_transformers
+chromadb
