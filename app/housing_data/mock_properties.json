@@ -1,7 +1,6 @@
 [
   {
-    "id": 1,
-    "price": 120,
+    "price_per_person": 120,
     "city": "Manchester",
     "bedrooms": 4,
     "distance": 10,
@@ -11,8 +10,7 @@
     "description": "Lively student house near University of Manchester with great social atmosphere. Perfect for outgoing students who love to entertain."
   },
   {
-    "id": 2,
-    "price": 95,
+    "price_per_person": 95,
     "city": "Liverpool",
     "bedrooms": 3,
     "distance": 5,
@@ -22,8 +20,7 @@
     "description": "Peaceful house close to University of Liverpool campus. Ideal for students who prioritize studying in a calm environment."
   },
   {
-    "id": 3,
-    "price": 150,
+    "price_per_person": 150,
     "city": "London",
     "bedrooms": 2,
     "distance": 15,
@@ -33,8 +30,7 @@
     "description": "Modern apartment in Zone 2 with excellent transport links to UCL and King's College. Great for meeting new people."
   },
   {
-    "id": 4,
-    "price": 85,
+    "price_per_person": 85,
     "city": "Birmingham",
     "bedrooms": 5,
     "distance": 8,
@@ -44,8 +40,7 @@
     "description": "Spacious house near Birmingham University with large communal areas. Known for hosting the best student gatherings."
   },
   {
-    "id": 5,
-    "price": 110,
+    "price_per_person": 110,
     "city": "Edinburgh",
     "bedrooms": 3,
     "distance": 12,
@@ -55,8 +50,7 @@
     "description": "Charming flat in a quiet area with stunning views. Perfect for postgraduate students seeking tranquility."
   },
   {
-    "id": 6,
-    "price": 140,
+    "price_per_person": 140,
     "city": "Bristol",
     "bedrooms": 4,
     "distance": 6,
@@ -66,8 +60,7 @@
     "description": "Eco-friendly student house near University of Bristol. Great community vibe with regular house dinners."
   },
   {
-    "id": 7,
-    "price": 75,
+    "price_per_person": 75,
     "city": "Leeds",
     "bedrooms": 6,
     "distance": 20,
@@ -77,8 +70,7 @@
     "description": "Large house in Headingley, the ultimate student area. Weekly parties and great nightlife nearby."
   },
   {
-    "id": 8,
-    "price": 130,
+    "price_per_person": 130,
     "city": "Manchester",
     "bedrooms": 2,
     "distance": 3,
@@ -88,8 +80,7 @@
     "description": "Premium apartment in the city centre with ensuite rooms. Perfect for mature students who value privacy."
   },
   {
-    "id": 9,
-    "price": 100,
+    "price_per_person": 100,
     "city": "Glasgow",
     "bedrooms": 4,
     "distance": 10,
@@ -99,8 +90,7 @@
     "description": "Friendly house near University of Glasgow. Current tenants love game nights and weekend brunches together."
   },
   {
-    "id": 10,
-    "price": 165,
+    "price_per_person": 165,
     "city": "London",
     "bedrooms": 1,
     "distance": 8,
@@ -110,8 +100,7 @@
     "description": "Studio apartment in modern building near Imperial College. Perfect for focused PhD students."
   },
   {
-    "id": 11,
-    "price": 90,
+    "price_per_person": 90,
     "city": "Nottingham",
     "bedrooms": 5,
     "distance": 7,
@@ -121,8 +110,7 @@
     "description": "Popular party house near Nottingham Trent University. Legendary summer BBQs in the massive garden."
   },
   {
-    "id": 12,
-    "price": 115,
+    "price_per_person": 115,
     "city": "Sheffield",
     "bedrooms": 3,
     "distance": 9,
@@ -132,8 +120,7 @@
     "description": "Renovated house close to University of Sheffield. Great for students who want a balance of social life and study."
   },
   {
-    "id": 13,
-    "price": 105,
+    "price_per_person": 105,
     "city": "Cardiff",
     "bedrooms": 4,
     "distance": 11,
@@ -143,8 +130,7 @@
     "description": "Peaceful house in a residential area near Cardiff University. Perfect for those who need a quiet study environment."
   },
   {
-    "id": 14,
-    "price": 125,
+    "price_per_person": 125,
     "city": "Newcastle",
     "bedrooms": 3,
     "distance": 4,
@@ -154,8 +140,7 @@
     "description": "House right in the heart of Newcastle's student scene. Walking distance to all the best clubs and bars."
   },
   {
-    "id": 15,
-    "price": 135,
+    "price_per_person": 135,
     "city": "Oxford",
     "bedrooms": 2,
     "distance": 13,
@@ -165,8 +150,7 @@
     "description": "Quiet cottage-style house perfect for Oxford students. Dedicated study spaces in every room."
   },
   {
-    "id": 16,
-    "price": 95,
+    "price_per_person": 95,
     "city": "Southampton",
     "bedrooms": 4,
     "distance": 6,
@@ -176,8 +160,7 @@
     "description": "Student house near Southampton University with a great mix of social and study time. Regular movie nights."
   },
   {
-    "id": 17,
-    "price": 155,
+    "price_per_person": 155,
     "city": "Cambridge",
     "bedrooms": 2,
     "distance": 14,
@@ -187,8 +170,7 @@
     "description": "Premium accommodation for Cambridge students. Quiet neighborhood with excellent study facilities."
   },
   {
-    "id": 18,
-    "price": 80,
+    "price_per_person": 80,
     "city": "Liverpool",
     "bedrooms": 6,
     "distance": 9,
@@ -198,8 +180,7 @@
     "description": "Massive student house perfect for a large group of friends. Known for epic pre-drinks before nights out."
   },
   {
-    "id": 19,
-    "price": 110,
+    "price_per_person": 110,
     "city": "Durham",
     "bedrooms": 3,
     "distance": 5,
@@ -209,8 +190,7 @@
     "description": "Traditional house in historic Durham. Quiet atmosphere ideal for students at Durham University's colleges."
   },
   {
-    "id": 20,
-    "price": 145,
+    "price_per_person": 145,
     "city": "London",
     "bedrooms": 3,
     "distance": 10,
@@ -220,8 +200,7 @@
     "description": "Modern flat in East London with rooftop terrace. Great for socializing and close to multiple universities."
   },
   {
-    "id": 21,
-    "price": 70,
+    "price_per_person": 70,
     "city": "Leicester",
     "bedrooms": 5,
     "distance": 15,
@@ -231,8 +210,7 @@
     "description": "Budget-friendly party house near De Montfort University. Big garden perfect for summer parties."
   },
   {
-    "id": 22,
-    "price": 120,
+    "price_per_person": 120,
     "city": "Exeter",
     "bedrooms": 4,
     "distance": 7,
@@ -242,8 +220,7 @@
     "description": "Well-maintained house near Exeter University. Great housemate dynamic with regular social gatherings."
   },
   {
-    "id": 23,
-    "price": 100,
+    "price_per_person": 100,
     "city": "York",
     "bedrooms": 3,
     "distance": 8,
@@ -253,8 +230,7 @@
     "description": "Cozy house in a peaceful area of York. Perfect for students who prefer early nights and focused study."
   },
   {
-    "id": 24,
-    "price": 160,
+    "price_per_person": 160,
     "city": "Edinburgh",
     "bedrooms": 2,
     "distance": 5,
@@ -264,8 +240,7 @@
     "description": "Luxury apartment in Edinburgh's New Town. Great for social students who also appreciate quality living."
   },
   {
-    "id": 25,
-    "price": 85,
+    "price_per_person": 85,
     "city": "Manchester",
     "bedrooms": 5,
     "distance": 12,
@@ -275,8 +250,7 @@
     "description": "Popular student house in Fallowfield. Close to curry mile and all the best student bars."
   },
   {
-    "id": 26,
-    "price": 125,
+    "price_per_person": 125,
     "city": "Bath",
     "bedrooms": 3,
     "distance": 6,
@@ -286,8 +260,7 @@
     "description": "Beautiful Georgian house in quiet Bath neighborhood. Perfect for University of Bath students."
   },
   {
-    "id": 27,
-    "price": 105,
+    "price_per_person": 105,
     "city": "Warwick",
     "bedrooms": 4,
     "distance": 10,
@@ -297,8 +270,7 @@
     "description": "Student house near Warwick University campus. Friendly atmosphere with regular house dinners and activities."
   },
   {
-    "id": 28,
-    "price": 175,
+    "price_per_person": 175,
     "city": "London",
     "bedrooms": 1,
     "distance": 5,
@@ -308,8 +280,7 @@
     "description": "Premium studio in Central London. Perfect for postgraduate students at LSE or UCL who value peace and luxury."
   },
   {
-    "id": 29,
-    "price": 90,
+    "price_per_person": 90,
     "city": "Brighton",
     "bedrooms": 4,
     "distance": 8,
@@ -319,8 +290,7 @@
     "description": "Bohemian student house near Brighton University. Artistic crowd with regular beach parties and BBQs."
   },
   {
-    "id": 30,
-    "price": 115,
+    "price_per_person": 115,
     "city": "Lancaster",
     "bedrooms": 3,
     "distance": 7,
