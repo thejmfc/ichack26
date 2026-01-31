@@ -1,5 +1,16 @@
-import logging, database
+import logging
+import importlib, sys, os
 import semantic_search
+
+
+try:
+    database = importlib.import_module("ichack26.database")
+except Exception:
+    try:
+        database = importlib.import_module("database")
+    except Exception:
+        sys.path.insert(0, os.path.dirname(__file__))
+        database = importlib.import_module("database")
 
 from dotenv import load_dotenv
 load_dotenv()

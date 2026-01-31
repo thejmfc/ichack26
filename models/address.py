@@ -1,8 +1,8 @@
 import requests
 import urllib.parse
 
+from geopy.distance import geodesic
 from sqlmodel import SQLModel
-from utils import distance_between
 
 
 POSTCODES_IO_API_BASE_URL = "https://api.postcodes.io/postcodes"
@@ -17,7 +17,12 @@ class Address(SQLModel):
         return requests.get(url).json()
 
     def distance_from(self, other: "Address") -> int:
-        return distance_between(self, other)
+        """Calculates the geodesic distance between two locations in kilometers.
+
+        Under the hood, this uses the latitude and longitude of each location's postcode.
+        """
+
+        return geodesic((self.latitude, self.longitude), (other.latitude, other.longitude)).km
 
     @property
     def latitude(self) -> float:
