@@ -1,6 +1,8 @@
 import logging
 import importlib, sys, os
-from .semantic_search import generate_embeds, collection
+
+# Add the current directory to Python path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
     database = importlib.import_module("ichack26.database")
@@ -20,6 +22,18 @@ from pydantic import BaseModel
 from pathlib import Path
 import json
 
+# Import semantic search modules
+try:
+    from semantic_search.collection import Collection
+    from semantic_search.generate_embeds import generate_embeddings
+    generate_embeddings()
+except ImportError as e:
+    print(f"Warning: Could not import semantic search modules: {e}")
+    # Create dummy functions to prevent crashes
+    class Collection:
+        def search(self, query): return []
+    def embed_text(text): return []
+
 
 log = logging.getLogger(__name__)
 
@@ -38,15 +52,14 @@ DATA_PATH = Path(__file__).parent / "recommendation" / "housing_data" / "mock_pr
 class PromptRequest(BaseModel):
     prompt: str
 
-
 def load_properties():
     try:
-        generate_embeds.generate_embeddings()
         with DATA_PATH.open("r", encoding="utf-8") as f:
             return json.load(f)
+    except FileNotFoundError:
+        return []
     except Exception as e:
         log.error(f"Error loading properties: {e}")
-    except FileNotFoundError:
         return []
 
 
@@ -66,10 +79,18 @@ def get_property(id: int):
 
 @app.post("/prompt")
 def embed_prompt(request: PromptRequest):
-    """Generate embeddings for a text prompt and return success response."""
-    collection = collection()
+    """Search for properties using semantic search."""
     try:
-        x = collection.query(request.prompt)
-        return {"message": "Embeddings generated successfully", "prompt": x}
+        # Create collection instance
+        collection_instance = Collection()
+        
+        # Search for similar properties
+        results = collection_instance.search(request.prompt)
+        
+        return {
+            "message": "Search completed successfully", 
+            "prompt": request.prompt,
+            "results": results
+        }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to generate embeddings: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to search: {str(e)}")

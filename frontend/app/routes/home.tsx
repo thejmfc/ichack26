@@ -40,6 +40,7 @@ export default function Home() {
         throw new Error("Failed to generate embeddings");
       }
       const data = await response.json();
+      console.log(data);
       console.log("Embed vectors:", data.embeds);
     } catch (err) {
       console.error("AI Search error:", err);
