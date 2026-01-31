@@ -13,9 +13,9 @@ class Property(SQLModel):
     description: str
  
 class UserPreference(BaseModel):
-    max_price: float | None
-    min_bedrooms: int | None
-    min_bathrooms: int | None
-    max_distance: float | None
+    price: float | None
+    bedrooms: int | None
+    bathrooms: int | None
+    distance: float | None
     prefer_bills_included: bool | None
     amenities: list[str] | None

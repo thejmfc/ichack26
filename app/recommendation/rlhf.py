@@ -3,11 +3,10 @@ from models import Property
 class RLHFProfile:
     def __init__(self):
         self.weights = {
-            "max_price": 1.0,
-            "min_bedrooms": 1.0,
-            "min_bathrooms": 1.0,
-            "max_distance": 1.0,
-            "vibe": 1.0,
+            "price": 1.0,
+            "bedrooms": 1.0,
+            "bathrooms": 1.0,
+            "distance": 1.0,
             "bills_included": 1.0,
             "amenities": 1.0
         }

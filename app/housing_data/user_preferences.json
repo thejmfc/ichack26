@@ -1,8 +1,8 @@
 {
-  "max_price": null,
-  "min_bedrooms": null,
-  "min_bathrooms": null,
-  "max_distance": null,
+  "price": null,
+  "bedrooms": null,
+  "bathrooms": null,
+  "distance": null,
   "prefer_bills_included": null,
   "amenities": null
 }
