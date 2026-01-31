@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import HomeCard from "../components/HomeCard";
 import useHomes from "../hooks/useHomes";
 import { Link } from "react-router";
+import { PiSparkleFill } from "react-icons/pi";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -16,6 +17,7 @@ const AMENITIES = ["Dishwasher", "Dryer", "Washer", "Parking", "Garden"];
 export default function Home() {
   const { homes, similarHomes, loading, error, search, query, count } = useHomes();
   const [showExtras, setShowExtras] = useState(false);
+  const [aiQuery, setAiQuery] = useState("");
 
   const [location, setLocation] = useState(query.location ?? "");
   const [beds, setBeds] = useState<number | null>(query.beds ?? null);
@@ -31,6 +33,14 @@ export default function Home() {
     search({ location: location || undefined, beds, baths, amenities: selectedAmenities });
   };
 
+  const handleAiSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // TODO: Integrate with AI LLM service
+    console.log("AI Search query:", aiQuery);
+    // For now, we could parse the query and extract location/requirements
+    // Example: "I want a 2 bedroom house in London with parking"
+  };
+
   const bedOptions = useMemo(() => [null, 1, 2, 3, 4, 5], []);
 
   return (
@@ -40,6 +50,42 @@ export default function Home() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Find your next home</h1>
           <p className="text-gray-600 dark:text-gray-300 mt-2">Search properties by location, bedrooms, bathrooms and amenities.</p>
         </header>
+
+        {/* AI Search Bar */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <form onSubmit={handleAiSearch} className="relative">
+            <div className="relative flex items-center bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 focus-within:border-blue-500 dark:focus-within:border-blue-400">
+              {/* Star Icon */}
+              <div className="pl-6 pr-4 flex items-center">
+                <PiSparkleFill className="w-6 h-6 text-purple-600/75" />
+              </div>
+              
+              {/* Search Input */}
+              <input
+                type="text"
+                value={aiQuery}
+                onChange={(e) => setAiQuery(e.target.value)}
+                placeholder="Ask AI"
+                className="flex-1 py-4 px-2 bg-transparent text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 border-none outline-none text-lg"
+              />
+              
+              {/* Search Button */}
+              <button
+                type="submit"
+                className="mr-3 px-6 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg"
+              >
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Divider with "OR" */}
+        <div className="flex items-center justify-center mb-6">
+          <div className="border-t border-gray-300 dark:border-gray-600 flex-1"></div>
+          <span className="px-4 text-gray-500 dark:text-gray-400 text-sm font-medium">OR USE FILTERS</span>
+          <div className="border-t border-gray-300 dark:border-gray-600 flex-1"></div>
+        </div>
 
         <form onSubmit={doSearch} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 mb-6">
           <div className="flex flex-col md:flex-row gap-3 items-center">
@@ -57,7 +103,7 @@ export default function Home() {
             >
               <option value="">Any beds</option>
               {bedOptions.slice(1).map((b) => (
-                <option key={b} value={b}>{b}+ beds</option>
+                <option key={b} value={b!}>{b}+ beds</option>
               ))}
             </select>
 
@@ -68,7 +114,7 @@ export default function Home() {
             >
               <option value="">Any baths</option>
               {bedOptions.slice(1).map((b) => (
-                <option key={b} value={b}>{b}+ baths</option>
+                <option key={b} value={b!}>{b}+ baths</option>
               ))}
             </select>
 
