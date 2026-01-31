@@ -2,6 +2,7 @@
  * Represents a home/property listing
  */
 export interface Home {
+    id: number
     price_per_person: number;
     city: string;
     address: string;

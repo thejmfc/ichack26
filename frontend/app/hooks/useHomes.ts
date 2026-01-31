@@ -19,7 +19,9 @@ export function useHomes(initialQuery?: Query) {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const homesData: Home[] = await response.json();
 
-            // Filter homes client-side based on queryParams
+            homesData.forEach((home, idx) => {
+                (home as any).id = idx+1;
+            });
             const filteredHomes = homesData.filter((home) => {
                 if (queryParams.bathrooms && home.bathrooms < queryParams.bathrooms) return false;
                 if (queryParams.bedrooms && home.bedrooms < queryParams.bedrooms) return false;

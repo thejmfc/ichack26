@@ -180,9 +180,9 @@ export default function Home() {
 
           {homes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {homes.map((h, idx) => (
-                <Link to={`/${idx+1}`}>
-                  <HomeCard key={idx} home={h} />
+              {homes.map((h) => (
+                <Link to={`/homes/${h.id}`}>
+                  <HomeCard key={h.id} home={h} />
                 </Link>
               ))}
             </div>
