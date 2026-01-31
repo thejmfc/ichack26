@@ -73,3 +73,4 @@ websockets==16.0
 
 sentence_transformers
 chromadb
+pandas
