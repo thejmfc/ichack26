@@ -27,7 +27,7 @@ export default function Home() {
   const toggleAmenity = (amenity: string) => {
     setSelectedAmenities((prev) => (prev.includes(amenity) ? prev.filter((a) => a !== amenity) : [...prev, amenity]));
   };
-
+// Euan bro 
 
   const handleAiSearch = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
