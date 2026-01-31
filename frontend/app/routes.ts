@@ -5,4 +5,5 @@ export default [
 	route("/homes/:id", "routes/homes/page.tsx"),
 	route("/signup", "routes/auth/signup.tsx"),
 	route("/signin", "routes/auth/signin.tsx"),
+	route("/ai-results/:query", "routes/ai-results.tsx")
 ] satisfies RouteConfig;

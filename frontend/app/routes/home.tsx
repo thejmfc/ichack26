@@ -30,20 +30,8 @@ export default function Home() {
 
   const handleAiSearch = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8000/prompt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: aiQuery }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to generate embeddings");
-      }
-      const data = await response.json();
-      console.log(data);
-      console.log("Embed vectors:", data.embeds);
-    } catch (err) {
-      console.error("AI Search error:", err);
+    if (aiQuery.trim()) {
+      window.location.href = `/ai-results/${encodeURIComponent(aiQuery)}`;
     }
   };
 
