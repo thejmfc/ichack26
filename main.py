@@ -26,13 +26,23 @@ import json
 
 from semantic_search.collection import Collection
 from semantic_search.generate_embeds import generate_embeddings
-generate_embeddings()
+import threading
+def run_generate_embeddings():
+    try:
+        generate_embeddings()
+    except Exception as e:
+        logging.getLogger(__name__).error(f"Error generating embeddings: {e}")
+
 
 
 
 log = logging.getLogger(__name__)
 
 app = FastAPI()
+
+@app.on_event("startup")
+def on_startup():
+    threading.Thread(target=run_generate_embeddings, daemon=True).start()
 
 app.add_middleware(
     CORSMiddleware,
@@ -81,6 +91,8 @@ def embed_prompt(request: PromptRequest):
         
         # Search for similar properties
         results = collection_instance.search(request.prompt)
+
+        print(results)
         
         return {
             "message": "Search completed successfully", 
