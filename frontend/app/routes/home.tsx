@@ -15,11 +15,7 @@ export function meta({}: Route.MetaArgs) {
 const AMENITIES = ["Dishwasher", "Dryer", "Washer", "Parking", "Garden", "Wifi"];
 
 export default function Home() {
-<<<<<<< HEAD
-  const { homes, similarHomes, loading, error, search, query, count, setQuery } = useHomes();
-=======
-  const { homes, loading, error, query, count } = useHomes();
->>>>>>> 8464ca18c3f9c9b1f1be26646390495d97e5ffda
+  const { homes, loading, error, search, query, count, setQuery } = useHomes();
   const [showExtras, setShowExtras] = useState(false);
   const [aiQuery, setAiQuery] = useState("");
 
@@ -32,12 +28,8 @@ export default function Home() {
     setSelectedAmenities((prev) => (prev.includes(amenity) ? prev.filter((a) => a !== amenity) : [...prev, amenity]));
   };
 
-<<<<<<< HEAD
 
-  const handleAiSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
-=======
   const handleAiSearch = async (e: React.SubmitEvent<HTMLFormElement>) => {
->>>>>>> 8464ca18c3f9c9b1f1be26646390495d97e5ffda
     e.preventDefault();
     try {
       const response = await fetch("/prompt", {
@@ -195,12 +187,12 @@ export default function Home() {
                 </Link>
               ))}
             </div>
-          ) : !loading && similarHomes && similarHomes.length > 0 ? (
+          ) : !loading && homes && homes.length > 0 ? (
             <section className="mt-6">
               <h2 className="text-xl font-semibold mb-3">Similar areas</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">No direct matches for "{location}" — you might like these nearby areas:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {similarHomes.map((h) => (
+                {homes.map((h) => (
                   <HomeCard key={h.address} home={h} />
                 ))}
               </div>
