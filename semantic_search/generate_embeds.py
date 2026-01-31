@@ -2,8 +2,11 @@ import json
 import os
 from sentence_transformers import SentenceTransformer
 
-
 model = SentenceTransformer('all-MiniLM-L6-v2')
+from semantic_search import collection as Collection
+
+collection = Collection()
+
 
 def embed_text(text: str):
     """Generate embeddings using SentenceTransformer"""
@@ -11,7 +14,7 @@ def embed_text(text: str):
     embedding = model.encode(cleaned_text, convert_to_tensor=False)
     return embedding.tolist()
 
-def generate_embeddings(text: str):
+def generate_embeddings():
     """Generate embeddings locally (original functionality)"""
     print("🔄 Generating embeddings...")
     
@@ -37,19 +40,4 @@ def generate_embeddings(text: str):
         """
         
         # Generate embedding
-        embedding = embed_text(text)
-        
-        # Store with property ID
-        property_id = property_data.get("id", i + 1)
-        embeddings[str(property_id)] = embedding
-        
-        print(f"Generated embedding for property {property_id} in {property_data.get('city', 'Unknown')}")
-
-    print(f"\nGenerated embeddings for {len(embeddings)} properties")
-
-    # Save embeddings
-    embeddings_path = os.path.join(os.path.dirname(__file__), "../recommendation/housing_data/mock_embeddings.json")
-    with open(embeddings_path, "w") as f:
-        json.dump(embeddings, f, indent=2)
-    
-    print(f"✅ Embeddings saved to {embeddings_path}")
+        collection.insert(text)

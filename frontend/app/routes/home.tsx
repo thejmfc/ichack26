@@ -41,7 +41,6 @@ export default function Home() {
       }
       const data = await response.json();
       console.log("Embed vectors:", data.embeds);
-      // You can now use data.embeds for further search/filtering
     } catch (err) {
       console.error("AI Search error:", err);
     }

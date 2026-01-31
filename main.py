@@ -1,6 +1,6 @@
 import logging
 import importlib, sys, os
-
+from .semantic_search import generate_embeds, collection
 
 try:
     database = importlib.import_module("ichack26.database")
@@ -19,7 +19,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pathlib import Path
 import json
-from semantic_search.generate_embeds import generate_embeddings
 
 
 log = logging.getLogger(__name__)
@@ -42,8 +41,11 @@ class PromptRequest(BaseModel):
 
 def load_properties():
     try:
+        generate_embeds.generate_embeddings()
         with DATA_PATH.open("r", encoding="utf-8") as f:
             return json.load(f)
+    except Exception as e:
+        log.error(f"Error loading properties: {e}")
     except FileNotFoundError:
         return []
 
@@ -65,8 +67,9 @@ def get_property(id: int):
 @app.post("/prompt")
 def embed_prompt(request: PromptRequest):
     """Generate embeddings for a text prompt and return success response."""
+    collection = collection()
     try:
-        generate_embeddings(request.prompt)
-        return {"message": "Embeddings generated successfully", "prompt": request.prompt}
+        x = collection.query(request.prompt)
+        return {"message": "Embeddings generated successfully", "prompt": x}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to generate embeddings: {str(e)}")
