@@ -31,10 +31,10 @@ export default function Home() {
   const handleAiSearch = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch("/prompt", {
+      const response = await fetch("http://localhost:8000/prompt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: aiQuery }),
+        body: JSON.stringify({ prompt: aiQuery }),
       });
       if (!response.ok) {
         throw new Error("Failed to generate embeddings");

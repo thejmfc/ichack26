@@ -7,7 +7,7 @@ def generate_embeddings(text: str):
     print("🔄 Generating embeddings...")
     
     # Load properties data
-    properties_path = os.path.join(os.path.dirname(__file__), "../recommendationsentence_transformers/housing_data/mock_properties.json")
+    properties_path = os.path.join(os.path.dirname(__file__), "../recommendation/housing_data/mock_properties.json")
     with open(properties_path) as f:
         data = json.load(f)
 

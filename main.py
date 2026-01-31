@@ -1,6 +1,5 @@
 import logging
 import importlib, sys, os
-import semantic_search
 
 
 try:
@@ -17,8 +16,10 @@ load_dotenv()
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from pathlib import Path
 import json
+from semantic_search.generate_embeds import generate_embeddings
 
 
 log = logging.getLogger(__name__)
@@ -34,6 +35,9 @@ app.add_middleware(
 )
 
 DATA_PATH = Path(__file__).parent / "recommendation" / "housing_data" / "mock_properties.json"
+
+class PromptRequest(BaseModel):
+    prompt: str
 
 
 def load_properties():
@@ -59,5 +63,10 @@ def get_property(id: int):
     return data[id - 1]
 
 @app.post("/prompt")
-def embed_prompt(prompt: str):
-    semantic_search.generate_embeddings(prompt)
+def embed_prompt(request: PromptRequest):
+    """Generate embeddings for a text prompt and return success response."""
+    try:
+        generate_embeddings(request.prompt)
+        return {"message": "Embeddings generated successfully", "prompt": request.prompt}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to generate embeddings: {str(e)}")
