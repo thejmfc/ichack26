@@ -27,11 +27,6 @@ def score_property(property: Property, user_preferences: UserPreference):
             # Penalty for being over budget
             score -= (property.price_per_person - user_preferences.max_price) / 5
     
-    # City matching - exact match gets bonus points
-    if user_preferences.city and property.city:
-        if property.city.lower() == user_preferences.city.lower():
-            score += 15
-    
     # Bedroom requirements - bonus for meeting or exceeding minimum
     if user_preferences.min_bedrooms and property.bedrooms:
         if property.bedrooms >= user_preferences.min_bedrooms:
@@ -55,11 +50,6 @@ def score_property(property: Property, user_preferences: UserPreference):
         else:
             # Penalty for being too far
             score -= (property.distance - user_preferences.max_distance)
-    
-    # Vibe matching - exact match gets bonus points
-    if user_preferences.vibe and property.vibe:
-        if property.vibe.lower() == user_preferences.vibe.lower():
-            score += 12
     
     # Bills included preference
     if user_preferences.prefer_bills_included is not None and property.bills_included is not None:
@@ -105,6 +95,15 @@ def recommend_properties(properties: list[Property], user_preferences: UserPrefe
     top = scored_properties[:limit]
     return [property for property, score in top]
 
+def recommend_properties_with_scores(properties: list[Property], user_preferences: UserPreference, limit: int = 10):
+    """Return recommendations as (property, score) tuples for testing and API use"""
+    scored_properties = [
+        (property, score_property(property, user_preferences))
+        for property in properties
+    ]
+    scored_properties.sort(key=lambda x: x[1], reverse=True)
+    return scored_properties[:limit]
+
 
 # FastAPI Endpoints
 @app.get("/", summary="Health Check")
@@ -124,10 +123,10 @@ def get_recommendations(request: RecommendationRequest):
     if not properties:
         raise HTTPException(status_code=404, detail="No properties found")
     
-    recommendations = recommend_properties(
+    recommendations = recommend_properties_with_scores(
         properties, 
         request.user_preferences, 
-        request.limit,
+        request.limit
     )
     
     return [
