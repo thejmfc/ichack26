@@ -1,0 +1,10 @@
+{
+  "max_price": null,
+  "city": null,
+  "min_bedrooms": null,
+  "min_bathrooms": null,
+  "max_distance": null,
+  "vibe": null,
+  "prefer_bills_included": null,
+  "amenities": null
+}

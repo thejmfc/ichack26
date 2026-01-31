@@ -1,5 +1,5 @@
 import json
-from models import Property
+from models import Property, UserPreference
 from sqlmodel import SQLModel, select
 
 file_path = 'housing_data/mock_properties.json'
@@ -11,3 +11,8 @@ def load_mock_properties(file_path):
 
 def load_from_db(session):
     return session.exec(select(Property)).all()
+
+def load_mock_user_preferences(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+        return UserPreference(**data)
