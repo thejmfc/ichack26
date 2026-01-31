@@ -20,14 +20,13 @@ export default function Home() {
   const [aiQuery, setAiQuery] = useState("");
 
   const [location, setLocation] = useState(query.location ?? "");
-  const [beds, setBeds] = useState<number | null>(query.beds ?? null);
-  const [baths, setBaths] = useState<number | null>(query.baths ?? null);
+  const [beds, setBeds] = useState<number | null>(query.bedrooms ?? null);
+  const [baths, setBaths] = useState<number | null>(query.bathrooms ?? null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(query.amenities ?? []);
 
   const toggleAmenity = (amenity: string) => {
     setSelectedAmenities((prev) => (prev.includes(amenity) ? prev.filter((a) => a !== amenity) : [...prev, amenity]));
   };
-// Euan bro 
 
   const handleAiSearch = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
