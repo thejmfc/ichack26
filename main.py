@@ -1,4 +1,5 @@
 import logging, database
+import semantic_search
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -45,3 +46,7 @@ def get_property(id: int):
     if id < 1 or id >= len(data):
         raise HTTPException(status_code=404, detail="Property not found")
     return data[id - 1]
+
+@app.post("/prompt")
+def embed_prompt(prompt: str):
+    semantic_search.generate_embeddings(prompt)
