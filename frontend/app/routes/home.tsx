@@ -15,7 +15,11 @@ export function meta({}: Route.MetaArgs) {
 const AMENITIES = ["Dishwasher", "Dryer", "Washer", "Parking", "Garden", "Wifi"];
 
 export default function Home() {
+<<<<<<< HEAD
   const { homes, similarHomes, loading, error, search, query, count, setQuery } = useHomes();
+=======
+  const { homes, loading, error, query, count } = useHomes();
+>>>>>>> 8464ca18c3f9c9b1f1be26646390495d97e5ffda
   const [showExtras, setShowExtras] = useState(false);
   const [aiQuery, setAiQuery] = useState("");
 
@@ -28,13 +32,28 @@ export default function Home() {
     setSelectedAmenities((prev) => (prev.includes(amenity) ? prev.filter((a) => a !== amenity) : [...prev, amenity]));
   };
 
+<<<<<<< HEAD
 
   const handleAiSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
+=======
+  const handleAiSearch = async (e: React.SubmitEvent<HTMLFormElement>) => {
+>>>>>>> 8464ca18c3f9c9b1f1be26646390495d97e5ffda
     e.preventDefault();
-    // TODO: Integrate with AI LLM service
-    console.log("AI Search query:", aiQuery);
-    // For now, we could parse the query and extract location/requirements
-    // Example: "I want a 2 bedroom house in London with parking"
+    try {
+      const response = await fetch("/prompt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: aiQuery }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to generate embeddings");
+      }
+      const data = await response.json();
+      console.log("Embed vectors:", data.embeds);
+      // You can now use data.embeds for further search/filtering
+    } catch (err) {
+      console.error("AI Search error:", err);
+    }
   };
 
   const bedOptions = useMemo(() => [null, 1, 2, 3, 4, 5], []);
