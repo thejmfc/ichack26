@@ -27,7 +27,7 @@ from database import init_with_mock_data, get_db, MockProperty, UserPreferences
 from sqlmodel import Session, select
 
 # Database will be initialized on first use via get_engine()
-print("🔄 Database will be initialized on startup...")
+print("[*] Database will be initialized on startup...")
 
 
 from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
@@ -41,14 +41,14 @@ import shutil
 # Import semantic search modules
 
 from semantic_search.collection import Collection
-from semantic_search.generate_embeds import generate_embeddings
 import threading
 import time
 def run_generate_embeddings():
     try:
+        from semantic_search.generate_embeds import generate_embeddings
         generate_embeddings()
     except Exception as e:
-        logging.getLogger(__name__).error(f"Error generating embeddings: {e}")
+        print(f"[WARNING] Error generating embeddings: {e}")
 
 
 
@@ -63,10 +63,10 @@ def on_startup():
     try:
         from database import get_engine
         engine = get_engine()
-        print("✅ Database initialization completed successfully!")
+        print("[OK] Database initialization completed successfully!")
         print(f"Database URL: {engine.url}")
     except Exception as e:
-        print(f"❌ Database initialization failed: {e}")
+        print(f"[ERROR] Database initialization failed: {e}")
         import traceback
         traceback.print_exc()
     
@@ -129,7 +129,7 @@ def get_properties(db: Session = Depends(get_db)):
             "bills_included": prop.bills_included,
             "amenities": amenities,
             "description": prop.description,
-            "image_url": prop.image_url
+            "image": prop.image
         })
     
     return result
@@ -159,7 +159,7 @@ def get_property(id: int, db: Session = Depends(get_db)):
         "bills_included": property.bills_included,
         "amenities": amenities,
         "description": property.description,
-        "image_url": property.image_url
+        "image": property.image
     }
 
 @app.post("/properties/{property_id}/upload-image")
@@ -190,14 +190,14 @@ async def upload_property_image(property_id: int, file: UploadFile = File(...), 
         
         # Update database with image URL
         image_url = f"/images/{filename}"
-        property_obj.image_url = image_url
+        property_obj.image = image_url
         db.add(property_obj)
         db.commit()
         
         return {
             "message": "Image uploaded successfully",
             "property_id": property_id,
-            "image_url": image_url,
+            "image": image_url,
             "filename": filename
         }
     except Exception as e:
@@ -210,10 +210,10 @@ def get_property_image(property_id: int, db: Session = Depends(get_db)):
     if not property_obj:
         raise HTTPException(status_code=404, detail="Property not found")
     
-    if not property_obj.image_url:
+    if not property_obj.image:
         raise HTTPException(status_code=404, detail="No image available for this property")
     
-    return {"property_id": property_id, "image_url": property_obj.image_url}
+    return {"property_id": property_id, "image": property_obj.image}
 
 @app.post("/prompt")
 def embed_prompt(request: PromptRequest):

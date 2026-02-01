@@ -8,8 +8,12 @@
     "distance": 10,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden"],
-    "description": "Lively student house near University of Sheffield with great social atmosphere. Perfect for outgoing students who love to entertain."
+    "amenities": [
+      "wifi",
+      "garden"
+    ],
+    "description": "Lively student house near University of Sheffield with great social atmosphere. Perfect for outgoing students who love to entertain.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 120,
@@ -20,8 +24,12 @@
     "distance": 10,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden"],
-    "description": "Lively student house near University of Sheffield with great social atmosphere. Perfect for outgoing students who love to entertain."
+    "amenities": [
+      "wifi",
+      "garden"
+    ],
+    "description": "Lively student house near University of Sheffield with great social atmosphere. Perfect for outgoing students who love to entertain.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 95,
@@ -32,8 +40,13 @@
     "distance": 5,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "study_room"],
-    "description": "Peaceful house close to University of Sheffield. Ideal for students who prioritize studying in a calm environment."
+    "amenities": [
+      "wifi",
+      "parking",
+      "study_room"
+    ],
+    "description": "Peaceful house close to University of Sheffield. Ideal for students who prioritize studying in a calm environment.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 150,
@@ -44,8 +57,13 @@
     "distance": 15,
     "vibe": "social",
     "bills_included": false,
-    "amenities": ["wifi", "gym", "laundry"],
-    "description": "Modern apartment with excellent transport links to the city centre. Great for meeting new people and joining campus activities at the University of Sheffield."
+    "amenities": [
+      "wifi",
+      "gym",
+      "laundry"
+    ],
+    "description": "Modern apartment with excellent transport links to the city centre. Great for meeting new people and joining campus activities at the University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 85,
@@ -56,8 +74,13 @@
     "distance": 8,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "parking"],
-    "description": "Spacious house in Sheffield with large communal areas. Known for hosting lively student gatherings and social events."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking"
+    ],
+    "description": "Spacious house in Sheffield with large communal areas. Known for hosting lively student gatherings and social events.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 110,
@@ -68,8 +91,13 @@
     "distance": 12,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "heating", "storage"],
-    "description": "Charming flat in a quiet area of Sheffield with stunning views. Perfect for postgraduate students seeking tranquility."
+    "amenities": [
+      "wifi",
+      "heating",
+      "storage"
+    ],
+    "description": "Charming flat in a quiet area of Sheffield with stunning views. Perfect for postgraduate students seeking tranquility.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 140,
@@ -80,8 +108,14 @@
     "distance": 6,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "bike_storage", "dishwasher"],
-    "description": "Eco-friendly student house near University of Sheffield. Great community vibe with regular house dinners."
+    "amenities": [
+      "wifi",
+      "garden",
+      "bike_storage",
+      "dishwasher"
+    ],
+    "description": "Eco-friendly student house near University of Sheffield. Great community vibe with regular house dinners.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 75,
@@ -92,8 +126,13 @@
     "distance": 20,
     "vibe": "party",
     "bills_included": false,
-    "amenities": ["wifi", "garden", "parking"],
-    "description": "Large house popular with students. Weekly parties and a lively nightlife nearby."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking"
+    ],
+    "description": "Large house popular with students. Weekly parties and a lively nightlife nearby.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 130,
@@ -104,8 +143,13 @@
     "distance": 3,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "ensuite", "study_room"],
-    "description": "Premium apartment in the city centre with ensuite rooms. Perfect for mature students who value privacy and proximity to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "ensuite",
+      "study_room"
+    ],
+    "description": "Premium apartment in the city centre with ensuite rooms. Perfect for mature students who value privacy and proximity to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 100,
@@ -116,8 +160,14 @@
     "distance": 10,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "garden", "laundry"],
-    "description": "Friendly house close to University of Sheffield. Current tenants love game nights and weekend brunches together."
+    "amenities": [
+      "wifi",
+      "parking",
+      "garden",
+      "laundry"
+    ],
+    "description": "Friendly house close to University of Sheffield. Current tenants love game nights and weekend brunches together.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 165,
@@ -128,8 +178,14 @@
     "distance": 8,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "gym", "concierge", "study_room"],
-    "description": "Studio apartment in a modern building close to University of Sheffield. Perfect for focused PhD students."
+    "amenities": [
+      "wifi",
+      "gym",
+      "concierge",
+      "study_room"
+    ],
+    "description": "Studio apartment in a modern building close to University of Sheffield. Perfect for focused PhD students.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 90,
@@ -140,8 +196,14 @@
     "distance": 7,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "bbq", "parking"],
-    "description": "Popular party house near University of Sheffield. Legendary summer BBQs in the massive garden."
+    "amenities": [
+      "wifi",
+      "garden",
+      "bbq",
+      "parking"
+    ],
+    "description": "Popular party house near University of Sheffield. Legendary summer BBQs in the massive garden.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 115,
@@ -152,8 +214,13 @@
     "distance": 9,
     "vibe": "social",
     "bills_included": false,
-    "amenities": ["wifi", "parking", "dishwasher"],
-    "description": "Renovated house close to University of Sheffield. Great for students who want a balance of social life and study."
+    "amenities": [
+      "wifi",
+      "parking",
+      "dishwasher"
+    ],
+    "description": "Renovated house close to University of Sheffield. Great for students who want a balance of social life and study.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 105,
@@ -164,8 +231,14 @@
     "distance": 11,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "study_room", "parking"],
-    "description": "Peaceful house in a residential area near University of Sheffield. Perfect for those who need a quiet study environment."
+    "amenities": [
+      "wifi",
+      "garden",
+      "study_room",
+      "parking"
+    ],
+    "description": "Peaceful house in a residential area near University of Sheffield. Perfect for those who need a quiet study environment.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 125,
@@ -176,8 +249,13 @@
     "distance": 4,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "laundry", "garden"],
-    "description": "House in the city with easy access to nightlife. Walking distance to all the best clubs and bars near University of Sheffield."
+    "amenities": [
+      "wifi",
+      "laundry",
+      "garden"
+    ],
+    "description": "House in the city with easy access to nightlife. Walking distance to all the best clubs and bars near University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 135,
@@ -188,8 +266,14 @@
     "distance": 13,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "parking", "bike_storage", "study_room"],
-    "description": "Quiet cottage-style house perfect for students. Dedicated study spaces in every room and easy transit to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "parking",
+      "bike_storage",
+      "study_room"
+    ],
+    "description": "Quiet cottage-style house perfect for students. Dedicated study spaces in every room and easy transit to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 95,
@@ -200,8 +284,14 @@
     "distance": 6,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "parking", "bbq"],
-    "description": "Student house close to University of Sheffield with a great mix of social and study time. Regular movie nights."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking",
+      "bbq"
+    ],
+    "description": "Student house close to University of Sheffield with a great mix of social and study time. Regular movie nights.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 155,
@@ -212,8 +302,14 @@
     "distance": 14,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "study_room", "bike_storage", "parking"],
-    "description": "Premium accommodation close to University of Sheffield. Quiet neighborhood with excellent study facilities."
+    "amenities": [
+      "wifi",
+      "study_room",
+      "bike_storage",
+      "parking"
+    ],
+    "description": "Premium accommodation close to University of Sheffield. Quiet neighborhood with excellent study facilities.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 80,
@@ -224,8 +320,14 @@
     "distance": 9,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "laundry", "parking"],
-    "description": "Massive student house perfect for a large group of friends. Known for epic pre-drinks before nights out and short rides to campus."
+    "amenities": [
+      "wifi",
+      "garden",
+      "laundry",
+      "parking"
+    ],
+    "description": "Massive student house perfect for a large group of friends. Known for epic pre-drinks before nights out and short rides to campus.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 110,
@@ -236,8 +338,14 @@
     "distance": 5,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "heating", "study_room"],
-    "description": "Traditional house in a quiet Sheffield neighbourhood. Ideal for students at the University of Sheffield."
+    "amenities": [
+      "wifi",
+      "parking",
+      "heating",
+      "study_room"
+    ],
+    "description": "Traditional house in a quiet Sheffield neighbourhood. Ideal for students at the University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 145,
@@ -248,8 +356,14 @@
     "distance": 10,
     "vibe": "social",
     "bills_included": false,
-    "amenities": ["wifi", "gym", "laundry", "roof_terrace"],
-    "description": "Modern flat with rooftop terrace. Great for socialising and close to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "gym",
+      "laundry",
+      "roof_terrace"
+    ],
+    "description": "Modern flat with rooftop terrace. Great for socialising and close to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 70,
@@ -260,8 +374,13 @@
     "distance": 15,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "parking"],
-    "description": "Budget-friendly party house near popular student areas. Big garden perfect for summer parties."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking"
+    ],
+    "description": "Budget-friendly party house near popular student areas. Big garden perfect for summer parties.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 120,
@@ -272,8 +391,14 @@
     "distance": 7,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "parking", "dishwasher"],
-    "description": "Well-maintained house with a great housemate dynamic and regular social gatherings close to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking",
+      "dishwasher"
+    ],
+    "description": "Well-maintained house with a great housemate dynamic and regular social gatherings close to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 100,
@@ -284,8 +409,13 @@
     "distance": 8,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "parking", "study_room"],
-    "description": "Cozy house in a peaceful area of Sheffield. Perfect for students who prefer early nights and focused study."
+    "amenities": [
+      "wifi",
+      "parking",
+      "study_room"
+    ],
+    "description": "Cozy house in a peaceful area of Sheffield. Perfect for students who prefer early nights and focused study.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 160,
@@ -296,8 +426,14 @@
     "distance": 5,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "gym", "laundry", "ensuite"],
-    "description": "Luxury apartment in a desirable Sheffield neighbourhood. Great for social students who appreciate quality living near campus."
+    "amenities": [
+      "wifi",
+      "gym",
+      "laundry",
+      "ensuite"
+    ],
+    "description": "Luxury apartment in a desirable Sheffield neighbourhood. Great for social students who appreciate quality living near campus.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 85,
@@ -308,8 +444,14 @@
     "distance": 12,
     "vibe": "party",
     "bills_included": false,
-    "amenities": ["wifi", "garden", "parking", "laundry"],
-    "description": "Popular student house in a lively Sheffield area. Close to local bars and restaurants."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking",
+      "laundry"
+    ],
+    "description": "Popular student house in a lively Sheffield area. Close to local bars and restaurants.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 125,
@@ -320,8 +462,14 @@
     "distance": 6,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "garden", "study_room"],
-    "description": "Beautiful Georgian house in a quiet Sheffield neighbourhood. Perfect for students who want style and calm."
+    "amenities": [
+      "wifi",
+      "parking",
+      "garden",
+      "study_room"
+    ],
+    "description": "Beautiful Georgian house in a quiet Sheffield neighbourhood. Perfect for students who want style and calm.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 105,
@@ -332,8 +480,14 @@
     "distance": 10,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "garden", "dishwasher"],
-    "description": "Student house with friendly atmosphere and regular house dinners. Close to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "parking",
+      "garden",
+      "dishwasher"
+    ],
+    "description": "Student house with friendly atmosphere and regular house dinners. Close to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 175,
@@ -344,8 +498,15 @@
     "distance": 5,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "gym", "concierge", "study_room", "ensuite"],
-    "description": "Premium studio in central Sheffield, ideal for postgraduate students who value peace and luxury close to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "gym",
+      "concierge",
+      "study_room",
+      "ensuite"
+    ],
+    "description": "Premium studio in central Sheffield, ideal for postgraduate students who value peace and luxury close to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 90,
@@ -356,8 +517,14 @@
     "distance": 8,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "bbq", "bike_storage"],
-    "description": "Bohemian student house with creative tenants and regular social events. Short commute to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "garden",
+      "bbq",
+      "bike_storage"
+    ],
+    "description": "Bohemian student house with creative tenants and regular social events. Short commute to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 115,
@@ -368,8 +535,14 @@
     "distance": 7,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "laundry", "garden"],
-    "description": "Welcoming house perfect for students wanting a balance of socialising and studying near University of Sheffield."
+    "amenities": [
+      "wifi",
+      "parking",
+      "laundry",
+      "garden"
+    ],
+    "description": "Welcoming house perfect for students wanting a balance of socialising and studying near University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 130,
@@ -380,8 +553,13 @@
     "distance": 6,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "parking"],
-    "description": "Freshly renovated townhouse popular with students; close to University of Sheffield and public transport."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking"
+    ],
+    "description": "Freshly renovated townhouse popular with students; close to University of Sheffield and public transport.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 85,
@@ -392,8 +570,13 @@
     "distance": 9,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "heating", "storage"],
-    "description": "Quiet family-style house converted for students; study rooms and a private garden."
+    "amenities": [
+      "wifi",
+      "heating",
+      "storage"
+    ],
+    "description": "Quiet family-style house converted for students; study rooms and a private garden.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 95,
@@ -404,8 +587,13 @@
     "distance": 7,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "bbq"],
-    "description": "Large student property with big communal kitchen and garden; popular for social events."
+    "amenities": [
+      "wifi",
+      "garden",
+      "bbq"
+    ],
+    "description": "Large student property with big communal kitchen and garden; popular for social events.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 115,
@@ -416,8 +604,13 @@
     "distance": 4,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "dishwasher"],
-    "description": "Modern shared house a short walk from University of Sheffield with regular house dinners."
+    "amenities": [
+      "wifi",
+      "parking",
+      "dishwasher"
+    ],
+    "description": "Modern shared house a short walk from University of Sheffield with regular house dinners.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 100,
@@ -428,8 +621,13 @@
     "distance": 11,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "parking", "study_room"],
-    "description": "Comfortable semi-detached house in a residential street; great for quiet study periods."
+    "amenities": [
+      "wifi",
+      "parking",
+      "study_room"
+    ],
+    "description": "Comfortable semi-detached house in a residential street; great for quiet study periods.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 140,
@@ -440,8 +638,13 @@
     "distance": 5,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "gym", "laundry"],
-    "description": "Stylish apartment with gym access and modern furnishings; popular for social students."
+    "amenities": [
+      "wifi",
+      "gym",
+      "laundry"
+    ],
+    "description": "Stylish apartment with gym access and modern furnishings; popular for social students.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 75,
@@ -452,8 +655,13 @@
     "distance": 14,
     "vibe": "party",
     "bills_included": false,
-    "amenities": ["wifi", "garden", "parking"],
-    "description": "Budget-friendly big house well-suited to large groups; lively neighborhood."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking"
+    ],
+    "description": "Budget-friendly big house well-suited to large groups; lively neighborhood.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 125,
@@ -464,8 +672,13 @@
     "distance": 6,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "study_room"],
-    "description": "Well-kept house with garden and private study area; ideal for postgraduate students."
+    "amenities": [
+      "wifi",
+      "garden",
+      "study_room"
+    ],
+    "description": "Well-kept house with garden and private study area; ideal for postgraduate students.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 90,
@@ -476,8 +689,13 @@
     "distance": 10,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "laundry"],
-    "description": "Friendly student home close to local amenities and public transport to campus."
+    "amenities": [
+      "wifi",
+      "parking",
+      "laundry"
+    ],
+    "description": "Friendly student home close to local amenities and public transport to campus.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 110,
@@ -488,8 +706,13 @@
     "distance": 8,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "heating"],
-    "description": "Modern three-bedroom house with comfortable study spaces and parking."
+    "amenities": [
+      "wifi",
+      "parking",
+      "heating"
+    ],
+    "description": "Modern three-bedroom house with comfortable study spaces and parking.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 135,
@@ -500,8 +723,13 @@
     "distance": 3,
     "vibe": "quiet",
     "bills_included": false,
-    "amenities": ["wifi", "bike_storage", "study_room"],
-    "description": "Cosy two-bedroom apartment ideal for students seeking a calm home close to University of Sheffield."
+    "amenities": [
+      "wifi",
+      "bike_storage",
+      "study_room"
+    ],
+    "description": "Cosy two-bedroom apartment ideal for students seeking a calm home close to University of Sheffield.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 95,
@@ -512,8 +740,13 @@
     "distance": 7,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "bbq"],
-    "description": "Spacious home with garden and communal areas; great for those who enjoy hosting."
+    "amenities": [
+      "wifi",
+      "garden",
+      "bbq"
+    ],
+    "description": "Spacious home with garden and communal areas; great for those who enjoy hosting.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 100,
@@ -524,8 +757,13 @@
     "distance": 9,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "parking", "laundry"],
-    "description": "Friendly share house with easy access to campus and local cafes."
+    "amenities": [
+      "wifi",
+      "parking",
+      "laundry"
+    ],
+    "description": "Friendly share house with easy access to campus and local cafes.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 120,
@@ -536,8 +774,13 @@
     "distance": 6,
     "vibe": "social",
     "bills_included": true,
-    "amenities": ["wifi", "dishwasher", "garden"],
-    "description": "Large house with modern kitchen and dining area perfect for social students."
+    "amenities": [
+      "wifi",
+      "dishwasher",
+      "garden"
+    ],
+    "description": "Large house with modern kitchen and dining area perfect for social students.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 105,
@@ -548,8 +791,13 @@
     "distance": 5,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "study_room", "parking"],
-    "description": "Comfortable shared accommodation with dedicated study area and quiet neighbours."
+    "amenities": [
+      "wifi",
+      "study_room",
+      "parking"
+    ],
+    "description": "Comfortable shared accommodation with dedicated study area and quiet neighbours.",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 85,
@@ -560,8 +808,13 @@
     "distance": 12,
     "vibe": "party",
     "bills_included": true,
-    "amenities": ["wifi", "garden", "parking"],
-    "description": "Energetic house in a popular student area; short ride into the city centre."
+    "amenities": [
+      "wifi",
+      "garden",
+      "parking"
+    ],
+    "description": "Energetic house in a popular student area; short ride into the city centre.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 130,
@@ -572,8 +825,13 @@
     "distance": 4,
     "vibe": "quiet",
     "bills_included": true,
-    "amenities": ["wifi", "ensuite", "bike_storage"],
-    "description": "Smart apartment with ensuite room and secure bike storage; ideal for commuters."
+    "amenities": [
+      "wifi",
+      "ensuite",
+      "bike_storage"
+    ],
+    "description": "Smart apartment with ensuite room and secure bike storage; ideal for commuters.",
+    "image": "https://images.unsplash.com/photo-1502784271512-f4e5b70472ba?w=500&h=400&fit=crop"
   },
   {
     "price_per_person": 145,
@@ -584,7 +842,12 @@
     "distance": 3,
     "vibe": "social",
     "bills_included": false,
-    "amenities": ["wifi", "gym", "laundry"],
-    "description": "Central apartment with communal rooftop and fantastic city views; great social hub."
+    "amenities": [
+      "wifi",
+      "gym",
+      "laundry"
+    ],
+    "description": "Central apartment with communal rooftop and fantastic city views; great social hub.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop"
   }
 ]

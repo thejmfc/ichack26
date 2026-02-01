@@ -25,7 +25,7 @@ class MockProperty(SQLModel, table=True):
     bills_included: bool
     amenities: str = Field(default="")  # Store as JSON string
     description: Optional[str] = None
-    image_url: Optional[str] = Field(default=None)  # URL to property image
+    image: Optional[str] = Field(default=None)  # URL to property image
 
 
 class UserPreferences(SQLModel, table=True):
@@ -89,7 +89,8 @@ def init_with_mock_data() -> Engine:
                         vibe=prop_data['vibe'],
                         bills_included=prop_data['bills_included'],
                         amenities=amenities_json,
-                        description=prop_data.get('description')
+                        description=prop_data.get('description'),
+                        image=prop_data.get('image')
                     )
                     session.add(mock_property)
                 

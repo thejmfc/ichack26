@@ -110,7 +110,7 @@ export default function AiResults() {
                         home.city = home.city ?? r.city ?? "";
                         home.address = home.address ?? r.address ?? "";
                         home.amenities = home.amenities ?? r.amenities ?? [];
-                        home.image_url = home.image_url ?? r.image_url ?? "";
+                        home.image = home.image ?? r.image ?? "";
                         home.name = home.name ?? r.name ?? "";
                         home.description = home.description ?? r.description ?? "";
                         home.distance = home.distance ?? r.distance ?? "";
