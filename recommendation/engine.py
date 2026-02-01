@@ -202,7 +202,7 @@ from database import get_db  # Assumes you have a get_db dependency for DB sessi
 @app.post("/user/preferences/{property_id}")
 def update_preferences(property_id: int, db: Session = Depends(get_db)):
     property_obj = db.query(PropertyModel).filter(PropertyModel.id == property_id).first()
-    user_pref = db.query(UserPreferenceModel).first()
+    user_pref = db.query(UserPreferenceModel).filter(UserPreferenceModel.id == 1).first()
 
     if not property_obj or not user_pref:
         raise HTTPException(status_code=404, detail="Property or UserPreference not found")

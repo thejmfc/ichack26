@@ -274,7 +274,7 @@ def get_properties_from_db(db: Session = Depends(get_db)):
 def update_preferences(property_id: int, db: Session = Depends(get_db)):
     """Update user preferences based on property selection"""
     property_obj = db.exec(select(MockProperty).where(MockProperty.id == property_id)).first()
-    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
+    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == 1)).first()
 
     if not property_obj:
         raise HTTPException(status_code=404, detail="Property not found")
@@ -284,7 +284,7 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
         from datetime import datetime
         timestamp = datetime.now().isoformat()
         user_pref = UserPreferences(
-            user_id=None,
+            user_id=1,
             feature_weights=json.dumps({
                 "price": 0.0,
                 "bedrooms": 0.0,
@@ -314,34 +314,40 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
         }
 
     # Update weights based on property characteristics (simple incremental learning)
-    learning_rate = 0.1
+    learning_rate = 0.2
     
     # Increase weight for price range
     if property_obj.price_per_person:
-        current_weights["price"] = min(current_weights["price"] + learning_rate, 1.0)
-    
+        current_weights["price"] += (property_obj.price_per_person * learning_rate)
+        print(f"Updated price weight: {current_weights['price']}")
+
     # Increase weight for bedrooms
     if property_obj.bedrooms:
-        current_weights["bedrooms"] = min(current_weights["bedrooms"] + learning_rate, 1.0)
-    
+        current_weights["bedrooms"] += (property_obj.bedrooms * learning_rate)
+        print(f"Updated bedrooms weight: {current_weights['bedrooms']}")
+
     # Increase weight for bathrooms
     if property_obj.bathrooms:
-        current_weights["bathrooms"] = min(current_weights["bathrooms"] + learning_rate, 1.0)
-    
+        current_weights["bathrooms"] += (property_obj.bathrooms * learning_rate)
+        print(f"Updated bathrooms weight: {current_weights['bathrooms']}")
+
     # Increase weight for distance
     if property_obj.distance:
-        current_weights["distance"] = min(current_weights["distance"] + learning_rate, 1.0)
-    
+        current_weights["distance"] += (property_obj.distance *  learning_rate)
+        print(f"Updated distance weight: {current_weights['distance']}")
+
     # Increase weight for bills included
     if property_obj.bills_included is not None:
-        current_weights["bills_included"] = min(current_weights["bills_included"] + learning_rate, 1.0)
-    
+        current_weights["bills_included"] += (property_obj.bills_included * learning_rate)
+        print(f"Updated bills included weight: {current_weights['bills_included']}")
+
     # Increase weight for amenities if property has amenities
     if property_obj.amenities:
         try:
             amenities = json.loads(property_obj.amenities)
             if amenities:
-                current_weights["amenities"] = min(current_weights["amenities"] + learning_rate, 1.0)
+                current_weights["amenities"] += (len(amenities) * learning_rate)
+                print(f"Updated amenities weight: {current_weights['amenities']}")
         except (json.JSONDecodeError, TypeError):
             pass
 
