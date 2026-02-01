@@ -33,7 +33,7 @@ class UserPreferences(SQLModel, table=True):
     __table_args__ = {'extend_existing': True}
     
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: Optional[int] = Field(default=None, foreign_key="user.id")  # FK to User table
+    user_id: Optional[int] = Field(default=None)  # Will add FK later when User table is populated
     feature_weights: str = Field(default="{}")  # JSON string of feature importance weights
     created_at: str = Field(default="")  # ISO timestamp
     updated_at: str = Field(default="")  # ISO timestamp
@@ -97,13 +97,13 @@ def init_with_mock_data() -> Engine:
                 log.info(f"Database already contains {existing_properties} properties. Skipping property initialization.")
             
             # Initialize user preferences
-            existing_preferences = session.exec(select(UserPreferences).where(UserPreferences.user_id == "default_user")).first()
+            existing_preferences = session.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
             if not existing_preferences:
                 from datetime import datetime
                 timestamp = datetime.now().isoformat()
                 
                 user_prefs = UserPreferences(
-                    user_id="default_user",
+                    user_id=None,
                     feature_weights=json.dumps({
                         "price": 0.0,
                         "bedrooms": 0.0,

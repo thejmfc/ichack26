@@ -210,7 +210,7 @@ def get_properties_from_db(db: Session = Depends(get_db)):
 def update_preferences(property_id: int, db: Session = Depends(get_db)):
     """Update user preferences based on property selection"""
     property_obj = db.exec(select(MockProperty).where(MockProperty.id == property_id)).first()
-    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == "default_user")).first()
+    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
 
     if not property_obj:
         raise HTTPException(status_code=404, detail="Property not found")
@@ -220,7 +220,7 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
         from datetime import datetime
         timestamp = datetime.now().isoformat()
         user_pref = UserPreferences(
-            user_id="default_user",
+            user_id=None,
             feature_weights=json.dumps({
                 "price": 0.0,
                 "bedrooms": 0.0,
@@ -299,12 +299,12 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
 @app.get("/user/preferences")
 def get_user_preferences(db: Session = Depends(get_db)):
     """Get current user preference weights"""
-    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == "default_user")).first()
+    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
     
     if not user_pref:
         # Return default preferences
         return {
-            "user_id": "default_user",
+            "user_id": None,
             "feature_weights": {
                 "price": 0.0,
                 "bedrooms": 0.0,
