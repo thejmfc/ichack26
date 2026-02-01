@@ -16,6 +16,27 @@ except Exception:
 from dotenv import load_dotenv
 load_dotenv()
 
+# Add the parent directory to the path so we can import from database module
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from dotenv import load_dotenv
+load_dotenv()
+
+# Import the database initialization function
+from database import init_with_mock_data
+
+print("🔄 Initializing SQLite database with mock properties data...")
+try:
+    engine = init_with_mock_data()
+    print("✅ Database initialization completed successfully!")
+    print(f"Database URL: {engine.url}")
+except Exception as e:
+    print(f"❌ Database initialization failed: {e}")
+    import traceback
+    traceback.print_exc()
+    sys.exit(1)
+
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -94,8 +115,6 @@ def embed_prompt(request: PromptRequest):
         results = collection_instance.search(request.prompt)
 
         print(results)
-
-        time.sleep(5)
 
         # Return the search results
         return {
