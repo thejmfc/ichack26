@@ -30,11 +30,13 @@ from sqlmodel import Session, select
 print("🔄 Database will be initialized on startup...")
 
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from pathlib import Path
 import json
+import shutil
 
 # Import semantic search modules
 
@@ -79,6 +81,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Setup static files directory for serving images
+IMAGES_DIR = Path(__file__).parent / "images"
+IMAGES_DIR.mkdir(exist_ok=True)
+
+# Mount the images directory to serve files at /images/ endpoint
+app.mount("/images", StaticFiles(directory=str(IMAGES_DIR)), name="images")
+
 DATA_PATH = Path(__file__).parent / "recommendation" / "housing_data" / "mock_properties.json"
 
 class PromptRequest(BaseModel):
@@ -119,7 +128,8 @@ def get_properties(db: Session = Depends(get_db)):
             "vibe": prop.vibe,
             "bills_included": prop.bills_included,
             "amenities": amenities,
-            "description": prop.description
+            "description": prop.description,
+            "image_url": prop.image_url
         })
     
     return result
@@ -148,8 +158,62 @@ def get_property(id: int, db: Session = Depends(get_db)):
         "vibe": property.vibe,
         "bills_included": property.bills_included,
         "amenities": amenities,
-        "description": property.description
+        "description": property.description,
+        "image_url": property.image_url
     }
+
+@app.post("/properties/{property_id}/upload-image")
+async def upload_property_image(property_id: int, file: UploadFile = File(...), db: Session = Depends(get_db)):
+    """Upload an image for a property"""
+    # Verify property exists
+    property_obj = db.get(MockProperty, property_id)
+    if not property_obj:
+        raise HTTPException(status_code=404, detail="Property not found")
+    
+    # Validate filename
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="File must have a filename")
+    
+    # Validate file type
+    allowed_extensions = {"jpg", "jpeg", "png", "gif", "webp"}
+    file_ext = file.filename.split(".")[-1].lower()
+    if file_ext not in allowed_extensions:
+        raise HTTPException(status_code=400, detail=f"File type not allowed. Allowed: {allowed_extensions}")
+    
+    # Save file
+    filename = f"property_{property_id}.{file_ext}"
+    file_path = IMAGES_DIR / filename
+    
+    try:
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        
+        # Update database with image URL
+        image_url = f"/images/{filename}"
+        property_obj.image_url = image_url
+        db.add(property_obj)
+        db.commit()
+        
+        return {
+            "message": "Image uploaded successfully",
+            "property_id": property_id,
+            "image_url": image_url,
+            "filename": filename
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to upload image: {str(e)}")
+
+@app.get("/properties/{property_id}/image")
+def get_property_image(property_id: int, db: Session = Depends(get_db)):
+    """Get image URL for a property"""
+    property_obj = db.get(MockProperty, property_id)
+    if not property_obj:
+        raise HTTPException(status_code=404, detail="Property not found")
+    
+    if not property_obj.image_url:
+        raise HTTPException(status_code=404, detail="No image available for this property")
+    
+    return {"property_id": property_id, "image_url": property_obj.image_url}
 
 @app.post("/prompt")
 def embed_prompt(request: PromptRequest):

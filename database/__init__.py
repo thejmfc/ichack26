@@ -25,6 +25,7 @@ class MockProperty(SQLModel, table=True):
     bills_included: bool
     amenities: str = Field(default="")  # Store as JSON string
     description: Optional[str] = None
+    image_url: Optional[str] = Field(default=None)  # URL to property image
 
 
 class UserPreferences(SQLModel, table=True):
