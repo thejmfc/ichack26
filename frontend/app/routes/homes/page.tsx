@@ -2,6 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import type { Home } from "../../types/home";
 
+// Converts niceness_rating (1-10 scale) to 5-star rating display
+function StarRating({ niceness_rating, showValue = true }: { niceness_rating: number; showValue?: boolean }) {
+  const rating = niceness_rating / 2; // Convert 1-10 to 0.5-5
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+  return (
+    <div className="flex items-center gap-1">
+      <div className="flex items-center text-yellow-400 text-lg">
+        {Array(fullStars).fill(null).map((_, i) => (
+          <span key={`full-${i}`}>★</span>
+        ))}
+        {hasHalfStar && <span>★</span>}
+        {Array(emptyStars).fill(null).map((_, i) => (
+          <span key={`empty-${i}`} className="text-gray-300 dark:text-gray-600">★</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function meta({ params }: { params: Record<string, string> }) {
   const id = params?.id ?? "";
   return [{ title: `Property ${id} — EstateSearch` }];
