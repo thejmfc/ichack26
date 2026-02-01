@@ -3,7 +3,7 @@ import type { Home } from "~/types/home";
 
 export function HomeCard({ home }: { home: Home }) {
   return (
-      <article className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-900">
+      <article className="border rounded-lg min-h-92 max-h-92 min-w-80 max-w-80 overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-900">
         <div className="h-44 bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
           {home.image ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -38,7 +38,7 @@ export function HomeCard({ home }: { home: Home }) {
           )}
 
           {home.description && (
-            <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">
+            <p className="mt-3 mb-3 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">
               {home.description}
             </p>
           )}

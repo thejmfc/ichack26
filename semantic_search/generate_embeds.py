@@ -19,6 +19,7 @@ def generate_embeddings():
     for i, property_data in enumerate(data):
         # Create property text
         text = f"""
+        Address: {property_data.get('address', "")}
         Description: {property_data.get("description", "")}
         City: {property_data.get("city", "")}
         Price per person: £{property_data.get("price_per_person", "")}
