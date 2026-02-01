@@ -56,7 +56,7 @@ html_content = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airbnb Listings - Aesthetic Scores</title>
+    <title>Housing Image Scores</title>
     <style>
         * {
             margin: 0;
