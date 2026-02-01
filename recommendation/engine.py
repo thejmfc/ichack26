@@ -1,4 +1,4 @@
-from models import Property, UserPreference
+from .models import Property, UserPreference
 from data_loading import load_mock_properties, load_mock_user_preferences
 from fastapi import FastAPI, HTTPException, Query
 from typing import Optional
@@ -6,8 +6,8 @@ from pydantic import BaseModel
 import os
 from sqlalchemy.orm import Session
 from fastapi import Depends
-from models import Property as PropertyModel
-from models import UserPreference as UserPreferenceModel
+from .models import Property as PropertyModel
+from .models import UserPreference as UserPreferenceModel
 
 app = FastAPI()
 
@@ -197,12 +197,13 @@ def search_properties(
     
     return filtered_properties
 
-from database import get_db  # Assumes you have a get_db dependency for DB sessions
+from database import get_db, MockProperty, UserPreferences  # Database models and session dependency
+from sqlmodel import select
 
 @app.post("/user/preferences/{property_id}")
 def update_preferences(property_id: int, db: Session = Depends(get_db)):
-    property_obj = db.query(PropertyModel).filter(PropertyModel.id == property_id).first()
-    user_pref = db.query(UserPreferenceModel).filter(UserPreferenceModel.id == 1).first()
+    property_obj = db.exec(select(MockProperty).where(MockProperty.id == property_id)).first()
+    user_pref = db.exec(select(UserPreferences)).first()
 
     if not property_obj or not user_pref:
         raise HTTPException(status_code=404, detail="Property or UserPreference not found")
