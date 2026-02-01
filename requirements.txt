@@ -11,7 +11,7 @@ fastapi-cli==0.0.20
 fastapi-cloud-cli==0.11.0
 fastar==0.8.0
 filelock==3.20.3
-fsspec==2026.1.0
+fsspec==2026.1
 ftfy==6.3.1
 geographiclib==2.1
 geopy==2.4.1
@@ -66,7 +66,7 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 urllib3==2.6.3
 uvicorn==0.40.0
-uvloop==0.22.1
+# uvloop==0.22.1
 watchfiles==1.1.1
 wcwidth==0.5.3
 websockets==16.0
