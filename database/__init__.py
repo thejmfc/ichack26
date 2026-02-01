@@ -26,6 +26,18 @@ class MockProperty(SQLModel, table=True):
     amenities: str = Field(default="")  # Store as JSON string
     description: Optional[str] = None
 
+
+class UserPreferences(SQLModel, table=True):
+    """User preferences model to store calibration data"""
+    __tablename__ = "user_preferences"
+    __table_args__ = {'extend_existing': True}
+    
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: str = Field(default="default_user")  # For now, using a default user
+    feature_weights: str = Field(default="{}")  # JSON string of feature importance weights
+    created_at: str = Field(default="")  # ISO timestamp
+    updated_at: str = Field(default="")  # ISO timestamp
+
 def init() -> Engine:
     db_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "database")
     os.makedirs(db_dir, exist_ok=True)
@@ -44,7 +56,7 @@ def init() -> Engine:
 
 
 def init_with_mock_data() -> Engine:
-    """Initialize database and populate with mock properties data"""
+    """Initialize database and populate with mock properties data and user preferences"""
     engine = init()
     
     # Load mock data
@@ -59,35 +71,66 @@ def init_with_mock_data() -> Engine:
             properties_data = json.load(f)
 
         with Session(engine) as session:
-            # Check if data already exists
-            existing_count = len(session.exec(select(MockProperty)).all())
-            if existing_count > 0:
-                log.info(f"Database already contains {existing_count} properties. Skipping initialization.")
-                return engine
-            
-            # Insert mock data using SQLModel
-            for prop_data in properties_data:
-                amenities_json = json.dumps(prop_data.get('amenities', []))
+            # Check if property data already exists
+            existing_properties = len(session.exec(select(MockProperty)).all())
+            if existing_properties == 0:
+                # Insert mock data using SQLModel
+                for prop_data in properties_data:
+                    amenities_json = json.dumps(prop_data.get('amenities', []))
+                    
+                    mock_property = MockProperty(
+                        price_per_person=prop_data['price_per_person'],
+                        city=prop_data['city'],
+                        address=prop_data['address'],
+                        bedrooms=prop_data['bedrooms'],
+                        bathrooms=prop_data['bathrooms'],
+                        distance=prop_data['distance'],
+                        vibe=prop_data['vibe'],
+                        bills_included=prop_data['bills_included'],
+                        amenities=amenities_json,
+                        description=prop_data.get('description')
+                    )
+                    session.add(mock_property)
                 
-                mock_property = MockProperty(
-                    price_per_person=prop_data['price_per_person'],
-                    city=prop_data['city'],
-                    address=prop_data['address'],
-                    bedrooms=prop_data['bedrooms'],
-                    bathrooms=prop_data['bathrooms'],
-                    distance=prop_data['distance'],
-                    vibe=prop_data['vibe'],
-                    bills_included=prop_data['bills_included'],
-                    amenities=amenities_json,
-                    description=prop_data.get('description')
+                log.info(f"✅ Successfully inserted {len(properties_data)} properties into the database")
+            else:
+                log.info(f"Database already contains {existing_properties} properties. Skipping property initialization.")
+            
+            # Initialize user preferences
+            existing_preferences = session.exec(select(UserPreferences).where(UserPreferences.user_id == "default_user")).first()
+            if not existing_preferences:
+                from datetime import datetime
+                timestamp = datetime.now().isoformat()
+                
+                user_prefs = UserPreferences(
+                    user_id="default_user",
+                    feature_weights=json.dumps({
+                        "price": 0.0,
+                        "bedrooms": 0.0,
+                        "bathrooms": 0.0,
+                        "amenities": 0.0,
+                        "distance": 0.0,
+                        "bills_included": 0.0,
+                    }),
+                    created_at=timestamp,
+                    updated_at=timestamp
                 )
-                session.add(mock_property)
+                session.add(user_prefs)
+                log.info("✅ Successfully initialized user preferences with null values")
+            else:
+                log.info("User preferences already exist. Skipping preferences initialization.")
             
             session.commit()
-            log.info(f"✅ Successfully inserted {len(properties_data)} properties into the database")
     
     except Exception as e:
-        log.error(f"Failed to load mock data: {e}")
+        log.error(f"Failed to load mock data or initialize preferences: {e}")
     
     return engine
 
+
+# Database dependency for FastAPI
+def get_db():
+    """Dependency to get database session"""
+    engine = init_with_mock_data()
+    with Session(engine) as session:
+        yield session

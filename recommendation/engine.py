@@ -4,6 +4,10 @@ from fastapi import FastAPI, HTTPException, Query
 from typing import Optional
 from pydantic import BaseModel
 import os
+from sqlalchemy.orm import Session
+from fastapi import Depends
+from models import Property as PropertyModel
+from models import UserPreference as UserPreferenceModel
 
 app = FastAPI()
 
@@ -104,7 +108,6 @@ def recommend_properties_with_scores(properties: list[Property], user_preference
     scored_properties.sort(key=lambda x: x[1], reverse=True)
     return scored_properties[:limit]
 
-
 # FastAPI Endpoints
 @app.get("/", summary="Health Check")
 def root():
@@ -193,3 +196,63 @@ def search_properties(
         filtered_properties = [p for p in filtered_properties if p.bills_included == bills_included]
     
     return filtered_properties
+
+from database import get_db  # Assumes you have a get_db dependency for DB sessions
+
+@app.post("/user/preferences/{property_id}")
+def update_preferences(property_id: int, db: Session = Depends(get_db)):
+    property_obj = db.query(PropertyModel).filter(PropertyModel.id == property_id).first()
+    user_pref = db.query(UserPreferenceModel).first()
+
+    if not property_obj or not user_pref:
+        raise HTTPException(status_code=404, detail="Property or UserPreference not found")
+
+    # Update price preference (move max_price toward property price)
+    if hasattr(user_pref, "price") and hasattr(property_obj, "price_per_person"):
+        if property_obj.price_per_person is not None:
+            # Move max_price 25% toward the selected property's price
+            user_pref.price = (
+                user_pref.price * 0.75 + property_obj.price_per_person * 0.25
+                if user_pref.price is not None else property_obj.price_per_person
+            )
+
+    # Update min_bedrooms
+    if hasattr(user_pref, "bedrooms") and hasattr(property_obj, "bedrooms"):
+        if property_obj.bedrooms is not None:
+            user_pref.bedrooms = max(
+                user_pref.bedrooms or 0,
+                property_obj.bedrooms
+            )
+
+    # Update min_bathrooms
+    if hasattr(user_pref, "bathrooms") and hasattr(property_obj, "bathrooms"):
+        if property_obj.bathrooms is not None:
+            user_pref.bathrooms = max(
+                user_pref.bathrooms or 0,
+                property_obj.bathrooms
+            )
+
+    # Update max_distance (move toward property distance)
+    if hasattr(user_pref, "distance") and hasattr(property_obj, "distance"):
+        if property_obj.distance is not None:
+            user_pref.distance = (
+                user_pref.distance * 0.75 + property_obj.distance * 0.25
+                if user_pref.distance is not None else property_obj.distance
+            )
+
+    # Update prefer_bills_included
+    if hasattr(user_pref, "bills_included") and hasattr(property_obj, "bills_included"):
+        if property_obj.bills_included is not None:
+            user_pref.bills_included = property_obj.bills_included
+
+    # Update amenities: add any new amenities from the property to user preferences
+    if hasattr(user_pref, "amenities") and hasattr(property_obj, "amenities"):
+        if property_obj.amenities:
+            current_amenities = set(user_pref.amenities or [])
+            property_amenities = set(property_obj.amenities)
+            # Add any amenities from the property that aren't already in preferences
+            user_pref.amenities = list(current_amenities | property_amenities)
+
+    db.commit()
+    db.refresh(user_pref)
+    return {"message": "User preferences updated", "user_preferences": user_pref}
