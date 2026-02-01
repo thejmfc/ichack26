@@ -315,43 +315,65 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
             "bills_included": 0.0,
         }
 
-    # Update weights based on property characteristics (simple incremental learning)
+    # Update weights to converge around a mean (moving average approach)
+    # Instead of a fixed target mean, use the running average of selected properties
+
     learning_rate = 0.2
-    
-    # Increase weight for price range
-    if property_obj.price_per_person:
-        current_weights["price"] += (property_obj.price_per_person * learning_rate)
-        print(f"Updated price weight: {current_weights['price']}")
 
-    # Increase weight for bedrooms
-    if property_obj.bedrooms:
-        current_weights["bedrooms"] += (property_obj.bedrooms * learning_rate)
-        print(f"Updated bedrooms weight: {current_weights['bedrooms']}")
+    # Retrieve or initialize running means for each feature
+    try:
+        running_means = json.loads(user_pref.__dict__.get("running_means", "{}"))
+    except (json.JSONDecodeError, TypeError):
+        running_means = {}
 
-    # Increase weight for bathrooms
-    if property_obj.bathrooms:
-        current_weights["bathrooms"] += (property_obj.bathrooms * learning_rate)
-        print(f"Updated bathrooms weight: {current_weights['bathrooms']}")
+    # Count of selections for running mean calculation
+    selection_count = user_pref.__dict__.get("selection_count", 0)
+    if not isinstance(selection_count, int):
+        try:
+            selection_count = int(selection_count)
+        except Exception:
+            selection_count = 0
+    selection_count += 1
 
-    # Increase weight for distance
-    if property_obj.distance:
-        current_weights["distance"] += (property_obj.distance *  learning_rate)
-        print(f"Updated distance weight: {current_weights['distance']}")
+    # Helper to update running mean
+    def update_mean(old_mean, new_value, n):
+        if old_mean is None:
+            return new_value
+        return old_mean + (new_value - old_mean) / n
 
-    # Increase weight for bills included
-    if property_obj.bills_included is not None:
-        current_weights["bills_included"] += (property_obj.bills_included * learning_rate)
-        print(f"Updated bills included weight: {current_weights['bills_included']}")
-
-    # Increase weight for amenities if property has amenities
+    # Update running means
+    features = [
+        ("price", property_obj.price_per_person),
+        ("bedrooms", property_obj.bedrooms),
+        ("bathrooms", property_obj.bathrooms),
+        ("distance", property_obj.distance),
+        ("bills_included", int(property_obj.bills_included) if property_obj.bills_included is not None else None),
+        ("amenities", None)
+    ]
+    # Calculate amenities count
     if property_obj.amenities:
         try:
             amenities = json.loads(property_obj.amenities)
-            if amenities:
-                current_weights["amenities"] += (len(amenities) * learning_rate)
-                print(f"Updated amenities weight: {current_weights['amenities']}")
+            features[-1] = ("amenities", len(amenities) if amenities else 0)
         except (json.JSONDecodeError, TypeError):
-            pass
+            features[-1] = ("amenities", 0)
+    else:
+        features[-1] = ("amenities", 0)
+
+    for key, value in features:
+        if value is not None:
+            old_mean = running_means.get(key)
+            running_means[key] = update_mean(old_mean, value, selection_count)
+
+    # Now update weights to move toward the running mean
+    for key, value in features:
+        if value is not None:
+            diff = value - running_means[key]
+            current_weights[key] += learning_rate * diff
+
+    # Store updated running means and selection count in user_pref (as JSON/text fields)
+    user_pref.__dict__["running_means"] = json.dumps(running_means)
+    user_pref.__dict__["selection_count"] = selection_count
 
     # Update user preferences
     from datetime import datetime
