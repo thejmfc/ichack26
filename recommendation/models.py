@@ -10,6 +10,7 @@ class Property(SQLModel):
     bills_included: bool
     amenities: list[str]
     description: str
+    niceness: int
  
 class UserPreference(SQLModel):
     price: float | None

@@ -15,6 +15,7 @@ export interface Home {
     description?: string;
     image?: string;
     location?: string;
+    niceness_rating?: number;
 }
 
 /**

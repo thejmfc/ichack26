@@ -23,6 +23,13 @@ export default function Home() {
   const [beds, setBeds] = useState<number | null>(query.bedrooms ?? null);
   const [baths, setBaths] = useState<number | null>(query.bathrooms ?? null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(query.amenities ?? []);
+  const [minRating, setMinRating] = useState<number>(0);
+
+  // Filter homes by minimum niceness_rating (1-10 scale)
+  const filteredHomes = useMemo(() => {
+    if (minRating === 0) return homes;
+    return homes.filter((h) => (h.niceness_rating ?? 0) >= minRating);
+  }, [homes, minRating]);
 
   const toggleAmenity = (amenity: string) => {
     setSelectedAmenities((prev) => (prev.includes(amenity) ? prev.filter((a) => a !== amenity) : [...prev, amenity]));
@@ -34,6 +41,8 @@ export default function Home() {
       window.location.href = `/ai-results/${encodeURIComponent(aiQuery)}`;
     }
   };
+
+  console.log(homes)
 
   const bedOptions = useMemo(() => [null, 1, 2, 3, 4, 5], []);
 
@@ -160,6 +169,32 @@ export default function Home() {
           )}
         </form>
 
+        {/* Rating Slider */}
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 mb-6">
+          <div className="flex items-center gap-4">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+              Minimum niceness_rating: {minRating === 0 ? "Any" : `${minRating}+`}
+            </label>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="0.5"
+              value={minRating}
+              onChange={(e) => setMinRating(Number(e.target.value))}
+              className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-yellow-400"
+            />
+            <div className="flex items-center gap-0.5 text-yellow-400">
+              {[2, 4, 6, 8, 10].map((val) => (
+                <span key={val} className={minRating >= val ? "opacity-100" : "opacity-30"}>
+                  ★
+                </span>
+              ))}
+            </div>
+            <span className="text-sm text-gray-600 dark:text-gray-400 min-w-[3rem]">{minRating}/10</span>
+          </div>
+        </div>
+
         {/* Calibrate Preferences Button */}
         <div className="flex justify-center mb-6">
           <Link 
@@ -192,15 +227,17 @@ export default function Home() {
 
         <section>
           <div className="flex items-center justify-between mb-4">
-            <div className="text-sm text-gray-600 dark:text-gray-300">{loading ? "Searching..." : `${count} properties found`}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">
+              {loading ? "Searching..." : `${filteredHomes.length} properties found${minRating > 0 ? ` (${count} total, filtered by ${minRating}+ stars)` : ""}`}
+            </div>
             {error && <div className="text-sm text-red-600">{error}</div>}
           </div>
 
-          {homes.length > 0 ? (
+          {filteredHomes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {homes.map((h) => (
-                <Link to={`/homes/${h.id}`}>
-                  <HomeCard key={h.id} home={h} />
+              {filteredHomes.map((h) => (
+                <Link to={`/homes/${h.id}`} key={h.id}>
+                  <HomeCard home={h} />
                 </Link>
               ))}
             </div>
@@ -209,7 +246,7 @@ export default function Home() {
               <h2 className="text-xl font-semibold mb-3">Similar areas</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">No direct matches for "{location}" — you might like these nearby areas:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {homes.map((h) => (
+                {filteredHomes.map((h) => (
                   <HomeCard key={h.address} home={h} />
                 ))}
               </div>

@@ -1,6 +1,26 @@
 import React from "react";
 import type { Home } from "~/types/home";
 
+// Converts niceness_rating (1-10 scale) to 5-star rating
+function StarRating({ niceness_rating }: { niceness_rating: number }) {
+  const rating = niceness_rating / 2; // Convert 1-10 to 0.5-5
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+  return (
+    <div className="flex items-center gap-0.5 text-yellow-400">
+      {Array(fullStars).fill(null).map((_, i) => (
+        <span key={`full-${i}`}>★</span>
+      ))}
+      {hasHalfStar && <span>★</span>}
+      {Array(emptyStars).fill(null).map((_, i) => (
+        <span key={`empty-${i}`} className="text-gray-300 dark:text-gray-600">★</span>
+      ))}
+    </div>
+  );
+}
+
 export function HomeCard({ home }: { home: Home }) {
   return (
       <article className="border rounded-lg min-h-92 max-h-92 min-w-80 overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-900">
@@ -13,9 +33,16 @@ export function HomeCard({ home }: { home: Home }) {
           )}
         </div>
         <div className="p-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
-            {home.address}
-          </h3>
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate flex-1">
+              {home.address}
+            </h3>
+            {1 == 1&& (
+              <div className="flex items-center gap-1 ml-2">
+                <span className="text-sm text-gray-600 dark:text-gray-400">{(home?.niceness_rating ?? 0).toFixed(1)}</span>
+              </div>
+            )}
+          </div>
           <p className="text-sm text-gray-500 dark:text-gray-400">{home.location}</p>
           <div className="mt-2 flex items-center justify-between">
             <div className="text-sm text-gray-700 dark:text-gray-200">{home.price_per_person} per person</div>

@@ -129,7 +129,8 @@ def get_properties(db: Session = Depends(get_db)):
             "bills_included": prop.bills_included,
             "amenities": amenities,
             "description": prop.description,
-            "image": prop.image
+            "image": prop.image,
+            "niceness_rating": prop.niceness_score,
         })
     
     return result
@@ -159,7 +160,8 @@ def get_property(id: int, db: Session = Depends(get_db)):
         "bills_included": property.bills_included,
         "amenities": amenities,
         "description": property.description,
-        "image": property.image
+        "image": property.image,
+        "niceness_rating": property.niceness_score,
     }
 
 @app.post("/properties/{property_id}/upload-image")
@@ -264,7 +266,8 @@ def get_properties_from_db(db: Session = Depends(get_db)):
             "vibe": prop.vibe,
             "bills_included": prop.bills_included,
             "amenities": amenities,
-            "description": prop.description
+            "description": prop.description,
+            "niceness_rating": prop.niceness_score,
         })
     
     return result

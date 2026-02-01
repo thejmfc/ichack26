@@ -70,7 +70,12 @@ export default function PropertyDetails() {
             )}
 
             <header className="mb-4">
-              <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{home.address}</h1>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{home.address}</h1>
+                {(home.niceness_rating ?? 0) > 0 && (
+                  <StarRating niceness_rating={home.niceness_rating ?? 0} />
+                )}
+              </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">{home.city}</div>
             </header>
 
