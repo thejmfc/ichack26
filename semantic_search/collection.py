@@ -1,9 +1,5 @@
 import chromadb
-import uuid
-import os
-
 from chromadb import Settings
-
 from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
