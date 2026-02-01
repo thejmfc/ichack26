@@ -25,6 +25,7 @@ class MockProperty(SQLModel, table=True):
     bills_included: bool
     amenities: str = Field(default="")  # Store as JSON string
     description: Optional[str] = None
+    image_url: Optional[str] = Field(default=None)  # URL to property image
 
 
 class UserPreferences(SQLModel, table=True):
@@ -33,7 +34,7 @@ class UserPreferences(SQLModel, table=True):
     __table_args__ = {'extend_existing': True}
     
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: str = Field(default="default_user")  # For now, using a default user
+    user_id: Optional[int] = Field(default=None)  # Will add FK later when User table is populated
     feature_weights: str = Field(default="{}")  # JSON string of feature importance weights
     created_at: str = Field(default="")  # ISO timestamp
     updated_at: str = Field(default="")  # ISO timestamp
@@ -97,13 +98,13 @@ def init_with_mock_data() -> Engine:
                 log.info(f"Database already contains {existing_properties} properties. Skipping property initialization.")
             
             # Initialize user preferences
-            existing_preferences = session.exec(select(UserPreferences).where(UserPreferences.user_id == "default_user")).first()
+            existing_preferences = session.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
             if not existing_preferences:
                 from datetime import datetime
                 timestamp = datetime.now().isoformat()
                 
                 user_prefs = UserPreferences(
-                    user_id="default_user",
+                    user_id=None,
                     feature_weights=json.dumps({
                         "price": 0.0,
                         "bedrooms": 0.0,
@@ -129,8 +130,18 @@ def init_with_mock_data() -> Engine:
 
 
 # Database dependency for FastAPI
+# Global engine instance
+_engine = None
+
+def get_engine() -> Engine:
+    """Get or create the global database engine"""
+    global _engine
+    if _engine is None:
+        _engine = init_with_mock_data()
+    return _engine
+
 def get_db():
     """Dependency to get database session"""
-    engine = init_with_mock_data()
+    engine = get_engine()
     with Session(engine) as session:
         yield session

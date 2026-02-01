@@ -26,23 +26,17 @@ load_dotenv()
 from database import init_with_mock_data, get_db, MockProperty, UserPreferences
 from sqlmodel import Session, select
 
-print("🔄 Initializing SQLite database with mock properties data...")
-try:
-    engine = init_with_mock_data()
-    print("✅ Database initialization completed successfully!")
-    print(f"Database URL: {engine.url}")
-except Exception as e:
-    print(f"❌ Database initialization failed: {e}")
-    import traceback
-    traceback.print_exc()
-    sys.exit(1)
+# Database will be initialized on first use via get_engine()
+print("🔄 Database will be initialized on startup...")
 
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from pathlib import Path
 import json
+import shutil
 
 # Import semantic search modules
 
@@ -65,6 +59,18 @@ app = FastAPI()
 
 @app.on_event("startup")
 def on_startup():
+    # Initialize database engine once at startup
+    try:
+        from database import get_engine
+        engine = get_engine()
+        print("✅ Database initialization completed successfully!")
+        print(f"Database URL: {engine.url}")
+    except Exception as e:
+        print(f"❌ Database initialization failed: {e}")
+        import traceback
+        traceback.print_exc()
+    
+    # Start embeddings generation in background
     threading.Thread(target=run_generate_embeddings, daemon=True).start()
 
 app.add_middleware(
@@ -74,6 +80,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Setup static files directory for serving images
+IMAGES_DIR = Path(__file__).parent / "images"
+IMAGES_DIR.mkdir(exist_ok=True)
+
+# Mount the images directory to serve files at /images/ endpoint
+app.mount("/images", StaticFiles(directory=str(IMAGES_DIR)), name="images")
 
 DATA_PATH = Path(__file__).parent / "recommendation" / "housing_data" / "mock_properties.json"
 
@@ -92,18 +105,115 @@ def load_properties():
 
 
 @app.get("/properties")
-def get_properties():
-    """Return the full list of properties from the mock JSON file."""
-    return load_properties()
+def get_properties(db: Session = Depends(get_db)):
+    """Return the full list of properties from the database."""
+    properties = db.exec(select(MockProperty)).all()
+    
+    # Convert to format expected by frontend
+    result = []
+    for prop in properties:
+        try:
+            amenities = json.loads(prop.amenities) if prop.amenities else []
+        except (json.JSONDecodeError, TypeError):
+            amenities = []
+        
+        result.append({
+            "id": prop.id,
+            "price_per_person": prop.price_per_person,
+            "city": prop.city,
+            "address": prop.address,
+            "bedrooms": prop.bedrooms,
+            "bathrooms": prop.bathrooms,
+            "distance": prop.distance,
+            "vibe": prop.vibe,
+            "bills_included": prop.bills_included,
+            "amenities": amenities,
+            "description": prop.description,
+            "image_url": prop.image_url
+        })
+    
+    return result
 
 
 @app.get("/properties/{id}")
-def get_property(id: int):
-    """Return a single property by its index in the array (0-based). Returns 404 if not found."""
-    data = load_properties()
-    if id < 1 or id >= len(data):
+def get_property(id: int, db: Session = Depends(get_db)):
+    """Return a single property by its ID. Returns 404 if not found."""
+    property = db.get(MockProperty, id)
+    if not property:
         raise HTTPException(status_code=404, detail="Property not found")
-    return data[id - 1]
+    
+    try:
+        amenities = json.loads(property.amenities) if property.amenities else []
+    except (json.JSONDecodeError, TypeError):
+        amenities = []
+    
+    return {
+        "id": property.id,
+        "price_per_person": property.price_per_person,
+        "city": property.city,
+        "address": property.address,
+        "bedrooms": property.bedrooms,
+        "bathrooms": property.bathrooms,
+        "distance": property.distance,
+        "vibe": property.vibe,
+        "bills_included": property.bills_included,
+        "amenities": amenities,
+        "description": property.description,
+        "image_url": property.image_url
+    }
+
+@app.post("/properties/{property_id}/upload-image")
+async def upload_property_image(property_id: int, file: UploadFile = File(...), db: Session = Depends(get_db)):
+    """Upload an image for a property"""
+    # Verify property exists
+    property_obj = db.get(MockProperty, property_id)
+    if not property_obj:
+        raise HTTPException(status_code=404, detail="Property not found")
+    
+    # Validate filename
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="File must have a filename")
+    
+    # Validate file type
+    allowed_extensions = {"jpg", "jpeg", "png", "gif", "webp"}
+    file_ext = file.filename.split(".")[-1].lower()
+    if file_ext not in allowed_extensions:
+        raise HTTPException(status_code=400, detail=f"File type not allowed. Allowed: {allowed_extensions}")
+    
+    # Save file
+    filename = f"property_{property_id}.{file_ext}"
+    file_path = IMAGES_DIR / filename
+    
+    try:
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        
+        # Update database with image URL
+        image_url = f"/images/{filename}"
+        property_obj.image_url = image_url
+        db.add(property_obj)
+        db.commit()
+        
+        return {
+            "message": "Image uploaded successfully",
+            "property_id": property_id,
+            "image_url": image_url,
+            "filename": filename
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to upload image: {str(e)}")
+
+@app.get("/properties/{property_id}/image")
+def get_property_image(property_id: int, db: Session = Depends(get_db)):
+    """Get image URL for a property"""
+    property_obj = db.get(MockProperty, property_id)
+    if not property_obj:
+        raise HTTPException(status_code=404, detail="Property not found")
+    
+    if not property_obj.image_url:
+        raise HTTPException(status_code=404, detail="No image available for this property")
+    
+    return {"property_id": property_id, "image_url": property_obj.image_url}
 
 @app.post("/prompt")
 def embed_prompt(request: PromptRequest):
@@ -164,7 +274,7 @@ def get_properties_from_db(db: Session = Depends(get_db)):
 def update_preferences(property_id: int, db: Session = Depends(get_db)):
     """Update user preferences based on property selection"""
     property_obj = db.exec(select(MockProperty).where(MockProperty.id == property_id)).first()
-    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == "default_user")).first()
+    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
 
     if not property_obj:
         raise HTTPException(status_code=404, detail="Property not found")
@@ -174,7 +284,7 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
         from datetime import datetime
         timestamp = datetime.now().isoformat()
         user_pref = UserPreferences(
-            user_id="default_user",
+            user_id=None,
             feature_weights=json.dumps({
                 "price": 0.0,
                 "bedrooms": 0.0,
@@ -253,12 +363,12 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
 @app.get("/user/preferences")
 def get_user_preferences(db: Session = Depends(get_db)):
     """Get current user preference weights"""
-    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == "default_user")).first()
+    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
     
     if not user_pref:
         # Return default preferences
         return {
-            "user_id": "default_user",
+            "user_id": None,
             "feature_weights": {
                 "price": 0.0,
                 "bedrooms": 0.0,
