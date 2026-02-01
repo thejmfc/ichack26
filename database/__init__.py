@@ -26,6 +26,7 @@ class MockProperty(SQLModel, table=True):
     amenities: str = Field(default="")  # Store as JSON string
     description: Optional[str] = None
     image: Optional[str] = Field(default=None)  # URL to property image
+    niceness_score: Optional[float] = Field(default=None)  # AI-generated aesthetic score
 
 
 class UserPreferences(SQLModel, table=True):
