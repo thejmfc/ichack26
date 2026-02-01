@@ -114,7 +114,8 @@ export default function AiResults() {
                         home.name = home.name ?? r.name ?? "";
                         home.description = home.description ?? r.description ?? "";
                         home.distance = home.distance ?? r.distance ?? "";
-                        home.niceness_rating = home.niceness_rating ?? 0
+                        home.image = home.image ?? ""
+                        home.niceness_rating = Number(home.niceness_rating) ?? 0
 
                         if (typeof home.amenities === "string") {
                             home.amenities = home.amenities.split(",").map((a: string) => a.trim());

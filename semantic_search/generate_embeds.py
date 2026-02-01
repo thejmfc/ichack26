@@ -41,6 +41,13 @@ def generate_embeddings():
         Distance: {property_data.distance} km
         Bills included: {property_data.bills_included}
         Amenities: {", ".join(amenities)}
+        Image: {property_data.image}
+        Niceness rating: {property_data.niceness_score}
+
+        Metadata: {property_data.bedrooms} Students
+        Price Range: {"Budget" if property_data.price_per_person < 110 else "Mid-range" if property_data.price_per_person < 150 else "Premium"}
+        Property Type: {"Studio" if property_data.bedrooms == 1 else "Shared House" if property_data.bedrooms > 3 else "Apartment"}
+        Location: {property_data.city}, {property_data.distance}km from campus
         """
         
         # Generate embedding using property ID from database
