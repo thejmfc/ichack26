@@ -26,16 +26,8 @@ load_dotenv()
 from database import init_with_mock_data, get_db, MockProperty, UserPreferences
 from sqlmodel import Session, select
 
-print("🔄 Initializing SQLite database with mock properties data...")
-try:
-    engine = init_with_mock_data()
-    print("✅ Database initialization completed successfully!")
-    print(f"Database URL: {engine.url}")
-except Exception as e:
-    print(f"❌ Database initialization failed: {e}")
-    import traceback
-    traceback.print_exc()
-    sys.exit(1)
+# Database will be initialized on first use via get_engine()
+print("🔄 Database will be initialized on startup...")
 
 
 from fastapi import FastAPI, HTTPException, Depends
@@ -65,6 +57,18 @@ app = FastAPI()
 
 @app.on_event("startup")
 def on_startup():
+    # Initialize database engine once at startup
+    try:
+        from database import get_engine
+        engine = get_engine()
+        print("✅ Database initialization completed successfully!")
+        print(f"Database URL: {engine.url}")
+    except Exception as e:
+        print(f"❌ Database initialization failed: {e}")
+        import traceback
+        traceback.print_exc()
+    
+    # Start embeddings generation in background
     threading.Thread(target=run_generate_embeddings, daemon=True).start()
 
 app.add_middleware(
@@ -92,18 +96,60 @@ def load_properties():
 
 
 @app.get("/properties")
-def get_properties():
-    """Return the full list of properties from the mock JSON file."""
-    return load_properties()
+def get_properties(db: Session = Depends(get_db)):
+    """Return the full list of properties from the database."""
+    properties = db.exec(select(MockProperty)).all()
+    
+    # Convert to format expected by frontend
+    result = []
+    for prop in properties:
+        try:
+            amenities = json.loads(prop.amenities) if prop.amenities else []
+        except (json.JSONDecodeError, TypeError):
+            amenities = []
+        
+        result.append({
+            "id": prop.id,
+            "price_per_person": prop.price_per_person,
+            "city": prop.city,
+            "address": prop.address,
+            "bedrooms": prop.bedrooms,
+            "bathrooms": prop.bathrooms,
+            "distance": prop.distance,
+            "vibe": prop.vibe,
+            "bills_included": prop.bills_included,
+            "amenities": amenities,
+            "description": prop.description
+        })
+    
+    return result
 
 
 @app.get("/properties/{id}")
-def get_property(id: int):
-    """Return a single property by its index in the array (0-based). Returns 404 if not found."""
-    data = load_properties()
-    if id < 1 or id >= len(data):
+def get_property(id: int, db: Session = Depends(get_db)):
+    """Return a single property by its ID. Returns 404 if not found."""
+    property = db.get(MockProperty, id)
+    if not property:
         raise HTTPException(status_code=404, detail="Property not found")
-    return data[id - 1]
+    
+    try:
+        amenities = json.loads(property.amenities) if property.amenities else []
+    except (json.JSONDecodeError, TypeError):
+        amenities = []
+    
+    return {
+        "id": property.id,
+        "price_per_person": property.price_per_person,
+        "city": property.city,
+        "address": property.address,
+        "bedrooms": property.bedrooms,
+        "bathrooms": property.bathrooms,
+        "distance": property.distance,
+        "vibe": property.vibe,
+        "bills_included": property.bills_included,
+        "amenities": amenities,
+        "description": property.description
+    }
 
 @app.post("/prompt")
 def embed_prompt(request: PromptRequest):

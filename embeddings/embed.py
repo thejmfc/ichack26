@@ -1,4 +1,4 @@
-import torch
+7ygtfc import torch
 import open_clip
 from PIL import Image
 
@@ -8,7 +8,7 @@ class Embedder:
         self.model, _, self.preprocess = open_clip.create_model_and_transforms(model_name, pretrained=pretrained)
         self.model = self.model.to(self.device)
         self.tokenizer = open_clip.get_tokenizer(model_name)
-
+lm 5rjm fc  stc3\z5f, [/]
     def embed_text(self, text: str):
         text_tokens = self.tokenizer([text]).to(self.device)
         with torch.no_grad():

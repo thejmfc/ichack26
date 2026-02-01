@@ -33,7 +33,7 @@ class UserPreferences(SQLModel, table=True):
     __table_args__ = {'extend_existing': True}
     
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: str = Field(default="default_user")  # For now, using a default user
+    user_id: Optional[int] = Field(default=None, foreign_key="user.id")  # FK to User table
     feature_weights: str = Field(default="{}")  # JSON string of feature importance weights
     created_at: str = Field(default="")  # ISO timestamp
     updated_at: str = Field(default="")  # ISO timestamp
@@ -129,8 +129,18 @@ def init_with_mock_data() -> Engine:
 
 
 # Database dependency for FastAPI
+# Global engine instance
+_engine = None
+
+def get_engine() -> Engine:
+    """Get or create the global database engine"""
+    global _engine
+    if _engine is None:
+        _engine = init_with_mock_data()
+    return _engine
+
 def get_db():
     """Dependency to get database session"""
-    engine = init_with_mock_data()
+    engine = get_engine()
     with Session(engine) as session:
         yield session
