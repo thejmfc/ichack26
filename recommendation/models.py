@@ -1,5 +1,4 @@
 from sqlmodel import SQLModel, Field
-from pydantic import BaseModel
 
 class Property(SQLModel):
     id: int = Field(default=None, primary_key=True)
@@ -12,10 +11,10 @@ class Property(SQLModel):
     amenities: list[str]
     description: str
  
-class UserPreference(BaseModel):
+class UserPreference(SQLModel):
     price: float | None
     bedrooms: int | None
     bathrooms: int | None
     distance: float | None
-    prefer_bills_included: bool | None
+    bills_included: bool | None
     amenities: list[str] | None

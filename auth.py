@@ -67,7 +67,7 @@ def _verify_password(password: str, stored: str) -> bool:
 
 @router.post("/signup")
 def signup(req: SignupRequest):
-    engine = database.init()
+    engine = database.get_engine()
     with Session(engine) as session:
         statement = select(User).where(User.email == req.email)
         existing = session.exec(statement).first()
@@ -84,7 +84,7 @@ def signup(req: SignupRequest):
 
 @router.post("/signin", response_model=TokenResponse)
 def signin(req: SigninRequest):
-    engine = database.init()
+    engine = database.get_engine()
     with Session(engine) as session:
         statement = select(User).where(User.email == req.email)
         user = session.exec(statement).first()

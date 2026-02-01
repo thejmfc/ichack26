@@ -160,6 +160,36 @@ export default function Home() {
           )}
         </form>
 
+        {/* Calibrate Preferences Button */}
+        <div className="flex justify-center mb-6">
+          <Link 
+            to="/preferences"
+            className="group relative inline-flex items-center px-8 py-4 bg-linear-to-r from-purple-600 via-blue-600 to-indigo-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden"
+          >
+            {/* Background glow effect */}
+            <div className="absolute inset-0 bg-linear-to-r from-purple-600 via-blue-600 to-indigo-600 opacity-75 blur-xl scale-105 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Button content */}
+            <div className="relative flex items-center">
+              <PiSparkleFill className="w-6 h-6 mr-3 animate-pulse" />
+              <span className="text-lg">Calibrate Preferences</span>
+              
+              {/* Arrow icon */}
+              <svg 
+                className="w-5 h-5 ml-3 transform group-hover:translate-x-1 transition-transform duration-300" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5-5 5M6 12h12" />
+              </svg>
+            </div>
+
+            {/* Shine effect */}
+            <div className="absolute top-0 left-0 w-full h-full bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 group-hover:translate-x-full transition-all duration-700 ease-out"></div>
+          </Link>
+        </div>
+
         <section>
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm text-gray-600 dark:text-gray-300">{loading ? "Searching..." : `${count} properties found`}</div>

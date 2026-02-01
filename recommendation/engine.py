@@ -1,9 +1,13 @@
-from models import Property, UserPreference
+from .models import Property, UserPreference
 from data_loading import load_mock_properties, load_mock_user_preferences
 from fastapi import FastAPI, HTTPException, Query
 from typing import Optional
 from pydantic import BaseModel
 import os
+from sqlalchemy.orm import Session
+from fastapi import Depends
+from .models import Property as PropertyModel
+from .models import UserPreference as UserPreferenceModel
 
 app = FastAPI()
 
@@ -19,43 +23,43 @@ def score_property(property: Property, user_preferences: UserPreference):
     score = 0
     
     # Price scoring - higher score for properties within budget
-    if user_preferences.max_price and property.price_per_person:
-        if property.price_per_person <= user_preferences.max_price:
+    if user_preferences.price and property.price_per_person:
+        if property.price_per_person <= user_preferences.price:
             # Bonus points for being under budget, more points for being further under
-            score += (user_preferences.max_price - property.price_per_person) / 10
+            score += (user_preferences.price - property.price_per_person) / 10
         else:
             # Penalty for being over budget
-            score -= (property.price_per_person - user_preferences.max_price) / 5
-    
+            score -= (property.price_per_person - user_preferences.price) / 5
+
     # Bedroom requirements - bonus for meeting or exceeding minimum
-    if user_preferences.min_bedrooms and property.bedrooms:
-        if property.bedrooms >= user_preferences.min_bedrooms:
-            score += 10 + (property.bedrooms - user_preferences.min_bedrooms)
+    if user_preferences.bedrooms and property.bedrooms:
+        if property.bedrooms >= user_preferences.bedrooms:
+            score += 10 + (property.bedrooms - user_preferences.bedrooms)
         else:
             # Penalty for not meeting minimum
-            score -= (user_preferences.min_bedrooms - property.bedrooms) * 5
-    
-    # Bathroom requirements - bonus for meeting or exceeding minimum  
-    if user_preferences.min_bathrooms and property.bathrooms:
-        if property.bathrooms >= user_preferences.min_bathrooms:
-            score += 8 + (property.bathrooms - user_preferences.min_bathrooms)
+            score -= (user_preferences.bedrooms - property.bedrooms) * 5
+
+    # Bathroom requirements - bonus for meeting or exceeding minimum
+    if user_preferences.bathrooms and property.bathrooms:
+        if property.bathrooms >= user_preferences.bathrooms:
+            score += 8 + (property.bathrooms - user_preferences.bathrooms)
         else:
             # Penalty for not meeting minimum
-            score -= (user_preferences.min_bathrooms - property.bathrooms) * 3
-    
+            score -= (user_preferences.bathrooms - property.bathrooms) * 3
+
     # Distance scoring - bonus for being within max distance, more points for closer
-    if user_preferences.max_distance and property.distance:
-        if property.distance <= user_preferences.max_distance:
-            score += (user_preferences.max_distance - property.distance) / 2
+    if user_preferences.distance and property.distance:
+        if property.distance <= user_preferences.distance:
+            score += (user_preferences.distance - property.distance) / 2
         else:
             # Penalty for being too far
-            score -= (property.distance - user_preferences.max_distance)
+            score -= (property.distance - user_preferences.distance)
     
     # Bills included preference
-    if user_preferences.prefer_bills_included is not None and property.bills_included is not None:
-        if user_preferences.prefer_bills_included == property.bills_included:
+    if user_preferences.bills_included is not None and property.bills_included is not None:
+        if user_preferences.bills_included == property.bills_included:
             score += 8
-        elif user_preferences.prefer_bills_included and not property.bills_included:
+        elif user_preferences.bills_included and not property.bills_included:
             score -= 3
     
     # Amenities matching - points for each matching amenity
@@ -103,7 +107,6 @@ def recommend_properties_with_scores(properties: list[Property], user_preference
     ]
     scored_properties.sort(key=lambda x: x[1], reverse=True)
     return scored_properties[:limit]
-
 
 # FastAPI Endpoints
 @app.get("/", summary="Health Check")
@@ -193,3 +196,64 @@ def search_properties(
         filtered_properties = [p for p in filtered_properties if p.bills_included == bills_included]
     
     return filtered_properties
+
+from database import get_db, MockProperty, UserPreferences  # Database models and session dependency
+from sqlmodel import select
+
+@app.post("/user/preferences/{property_id}")
+def update_preferences(property_id: int, db: Session = Depends(get_db)):
+    property_obj = db.exec(select(MockProperty).where(MockProperty.id == property_id)).first()
+    user_pref = db.exec(select(UserPreferences)).first()
+
+    if not property_obj or not user_pref:
+        raise HTTPException(status_code=404, detail="Property or UserPreference not found")
+
+    # Update price preference (move max_price toward property price)
+    if hasattr(user_pref, "price") and hasattr(property_obj, "price_per_person"):
+        if property_obj.price_per_person is not None:
+            # Move max_price 25% toward the selected property's price
+            user_pref.price = (
+                user_pref.price * 0.75 + property_obj.price_per_person * 0.25
+                if user_pref.price is not None else property_obj.price_per_person
+            )
+
+    # Update min_bedrooms
+    if hasattr(user_pref, "bedrooms") and hasattr(property_obj, "bedrooms"):
+        if property_obj.bedrooms is not None:
+            user_pref.bedrooms = max(
+                user_pref.bedrooms or 0,
+                property_obj.bedrooms
+            )
+
+    # Update min_bathrooms
+    if hasattr(user_pref, "bathrooms") and hasattr(property_obj, "bathrooms"):
+        if property_obj.bathrooms is not None:
+            user_pref.bathrooms = max(
+                user_pref.bathrooms or 0,
+                property_obj.bathrooms
+            )
+
+    # Update max_distance (move toward property distance)
+    if hasattr(user_pref, "distance") and hasattr(property_obj, "distance"):
+        if property_obj.distance is not None:
+            user_pref.distance = (
+                user_pref.distance * 0.75 + property_obj.distance * 0.25
+                if user_pref.distance is not None else property_obj.distance
+            )
+
+    # Update prefer_bills_included
+    if hasattr(user_pref, "bills_included") and hasattr(property_obj, "bills_included"):
+        if property_obj.bills_included is not None:
+            user_pref.bills_included = property_obj.bills_included
+
+    # Update amenities: add any new amenities from the property to user preferences
+    if hasattr(user_pref, "amenities") and hasattr(property_obj, "amenities"):
+        if property_obj.amenities:
+            current_amenities = set(user_pref.amenities or [])
+            property_amenities = set(property_obj.amenities)
+            # Add any amenities from the property that aren't already in preferences
+            user_pref.amenities = list(current_amenities | property_amenities)
+
+    db.commit()
+    db.refresh(user_pref)
+    return {"message": "User preferences updated", "user_preferences": user_pref}
