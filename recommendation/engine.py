@@ -23,43 +23,43 @@ def score_property(property: Property, user_preferences: UserPreference):
     score = 0
     
     # Price scoring - higher score for properties within budget
-    if user_preferences.max_price and property.price_per_person:
-        if property.price_per_person <= user_preferences.max_price:
+    if user_preferences.price and property.price_per_person:
+        if property.price_per_person <= user_preferences.price:
             # Bonus points for being under budget, more points for being further under
-            score += (user_preferences.max_price - property.price_per_person) / 10
+            score += (user_preferences.price - property.price_per_person) / 10
         else:
             # Penalty for being over budget
-            score -= (property.price_per_person - user_preferences.max_price) / 5
-    
+            score -= (property.price_per_person - user_preferences.price) / 5
+
     # Bedroom requirements - bonus for meeting or exceeding minimum
-    if user_preferences.min_bedrooms and property.bedrooms:
-        if property.bedrooms >= user_preferences.min_bedrooms:
-            score += 10 + (property.bedrooms - user_preferences.min_bedrooms)
+    if user_preferences.bedrooms and property.bedrooms:
+        if property.bedrooms >= user_preferences.bedrooms:
+            score += 10 + (property.bedrooms - user_preferences.bedrooms)
         else:
             # Penalty for not meeting minimum
-            score -= (user_preferences.min_bedrooms - property.bedrooms) * 5
-    
-    # Bathroom requirements - bonus for meeting or exceeding minimum  
-    if user_preferences.min_bathrooms and property.bathrooms:
-        if property.bathrooms >= user_preferences.min_bathrooms:
-            score += 8 + (property.bathrooms - user_preferences.min_bathrooms)
+            score -= (user_preferences.bedrooms - property.bedrooms) * 5
+
+    # Bathroom requirements - bonus for meeting or exceeding minimum
+    if user_preferences.bathrooms and property.bathrooms:
+        if property.bathrooms >= user_preferences.bathrooms:
+            score += 8 + (property.bathrooms - user_preferences.bathrooms)
         else:
             # Penalty for not meeting minimum
-            score -= (user_preferences.min_bathrooms - property.bathrooms) * 3
-    
+            score -= (user_preferences.bathrooms - property.bathrooms) * 3
+
     # Distance scoring - bonus for being within max distance, more points for closer
-    if user_preferences.max_distance and property.distance:
-        if property.distance <= user_preferences.max_distance:
-            score += (user_preferences.max_distance - property.distance) / 2
+    if user_preferences.distance and property.distance:
+        if property.distance <= user_preferences.distance:
+            score += (user_preferences.distance - property.distance) / 2
         else:
             # Penalty for being too far
-            score -= (property.distance - user_preferences.max_distance)
+            score -= (property.distance - user_preferences.distance)
     
     # Bills included preference
-    if user_preferences.prefer_bills_included is not None and property.bills_included is not None:
-        if user_preferences.prefer_bills_included == property.bills_included:
+    if user_preferences.bills_included is not None and property.bills_included is not None:
+        if user_preferences.bills_included == property.bills_included:
             score += 8
-        elif user_preferences.prefer_bills_included and not property.bills_included:
+        elif user_preferences.bills_included and not property.bills_included:
             score -= 3
     
     # Amenities matching - points for each matching amenity
