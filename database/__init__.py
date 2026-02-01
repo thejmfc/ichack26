@@ -98,13 +98,13 @@ def init_with_mock_data() -> Engine:
                 log.info(f"Database already contains {existing_properties} properties. Skipping property initialization.")
             
             # Initialize user preferences
-            existing_preferences = session.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
+            existing_preferences = session.exec(select(UserPreferences).where(UserPreferences.user_id == 1)).first()
             if not existing_preferences:
                 from datetime import datetime
                 timestamp = datetime.now().isoformat()
                 
                 user_prefs = UserPreferences(
-                    user_id=None,
+                    user_id=1,
                     feature_weights=json.dumps({
                         "price": 0.0,
                         "bedrooms": 0.0,

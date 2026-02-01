@@ -300,6 +300,8 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(user_pref)
 
+
+    print(user_pref)
     # Parse current feature weights
     try:
         current_weights = json.loads(user_pref.feature_weights)
@@ -369,12 +371,12 @@ def update_preferences(property_id: int, db: Session = Depends(get_db)):
 @app.get("/user/preferences")
 def get_user_preferences(db: Session = Depends(get_db)):
     """Get current user preference weights"""
-    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == None)).first()
+    user_pref = db.exec(select(UserPreferences).where(UserPreferences.user_id == 1)).first()
     
     if not user_pref:
         # Return default preferences
         return {
-            "user_id": None,
+            "user_id": 1,
             "feature_weights": {
                 "price": 0.0,
                 "bedrooms": 0.0,
